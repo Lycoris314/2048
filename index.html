@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="jquery.js"></script>
+    <script src="ramda.min.js"></script>
+    <script src="panel.js"></script>
+    <script src="2048.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>2048</h1>
+            <div class="scores">
+                <div class="score high">
+                    <p>ハイスコア</p>
+                    <p class="num">0</p>
+                </div>
+                <div class="score now">
+                    <p>スコア</p>
+                    <p class="num">0</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="p00" class="cell"></div>
+            <div id="p10" class="cell"></div>
+            <div id="p20" class="cell"></div>
+            <div id="p30" class="cell"></div>
+            <div id="p01" class="cell"></div>
+            <div id="p11" class="cell"></div>
+            <div id="p21" class="cell"></div>
+            <div id="p31" class="cell"></div>
+            <div id="p02" class="cell"></div>
+            <div id="p12" class="cell"></div>
+            <div id="p22" class="cell"></div>
+            <div id="p33" class="cell"></div>
+            <div id="p03" class="cell"></div>
+            <div id="p13" class="cell"></div>
+            <div id="p23" class="cell"></div>
+            <div id="p33" class="cell"></div>
+        </main>
+        <button class="restart">リスタート</button>
+        <button class="rule">ルール</button>
+    </div>
+</body>
+
+</html>

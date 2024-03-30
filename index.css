@@ -1,0 +1,168 @@
+:root {
+    --green: darkgreen;
+
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    width: max-content;
+    height: 98vh;
+    margin: 0 auto;
+    padding: 0 20px;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.scores {
+    display: flex;
+    gap: 10px;
+}
+
+div.score {
+    background-color: var(--green);
+    color: white;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+}
+
+div.score>p {
+    text-align: center;
+    margin: 0;
+}
+
+
+
+
+main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+    width: 650px;
+    height: 650px;
+    background-color: var(--green);
+    position: relative;
+}
+
+main>div.cell {
+    background-color: rgb(0, 42, 0);
+    border-radius: 5px;
+    position: absolute;
+}
+
+.panel {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    display: grid;
+    place-content: center;
+
+}
+
+.panel.pos00 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.panel.pos01 {
+    position: absolute;
+    top: 0;
+    left: 150px;
+}
+
+.panel.pos02 {
+    position: absolute;
+    top: 0;
+    left: 300px;
+}
+
+.panel.pos03 {
+    position: absolute;
+    top: 0;
+    left: 450px;
+}
+
+.panel.pos10 {
+    position: absolute;
+    top: 150px;
+    left: 0;
+}
+
+.panel.pos11 {
+    position: absolute;
+    top: 150px;
+    left: 150px;
+}
+
+.panel.pos12 {
+    position: absolute;
+    top: 150px;
+    left: 300px;
+}
+
+.panel.pos13 {
+    position: absolute;
+    top: 150px;
+    left: 450px;
+}
+
+.panel.pos20 {
+    position: absolute;
+    top: 300px;
+    left: 0;
+}
+
+.panel.pos21 {
+    position: absolute;
+    top: 300px;
+    left: 150px;
+}
+
+.panel.pos22 {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+}
+
+.panel.pos23 {
+    position: absolute;
+    top: 300px;
+    left: 450px;
+}
+
+.panel.pos30 {
+    position: absolute;
+    top: 450px;
+    left: 0;
+}
+
+.panel.pos31 {
+    position: absolute;
+    top: 450px;
+    left: 150px;
+}
+
+.panel.pos32 {
+    position: absolute;
+    top: 450px;
+    left: 300px;
+}
+
+.panel.pos33 {
+    position: absolute;
+    top: 450px;
+    left: 450px;
+}
