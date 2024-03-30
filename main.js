@@ -1,18 +1,22 @@
 $(() => {
 
-    //変化するパラメータをまとめたもの
+    //パラメータ
     const pa = {
-        inAnimation: false,
+        stopKeyEvent: false,
         score: 0,
-        isGameOver: false
+        isCleared: false,
     }
 
-    const gameField = new GameField($("main"));
+    let gameField = new GameField($("main"));
+
+    let highScore = localStorage.getItem("highScore");
+
+    $(".score.high>.num").text(highScore === null ? 0 : highScore);
 
 
     $("html").on("keydown", (e) => {
 
-        if (pa.isGameOver) return;
+        if (pa.stopKeyEvent) return;
 
         if (e.key == "ArrowUp" || e.key == "w") {
 
@@ -42,60 +46,69 @@ $(() => {
             $(".score.now >.num").text(pa.score);
         }
 
+        if (gameField.isGameClear() && !pa.isCleared) {
+
+            pa.stopKeyEvent = true;
+            $("div.gameClear").addClass("show");
+            $("span.score").text(pa.score);
+            pa.isCleared = true;
+            console.log("clear");
+
+            if (highScore === null || pa.score > highScore) {
+                highScore = pa.score;
+                localStorage.setItem("highScore", pa.score);
+            }
+        }
+
         if (gameField.isGameOver()) {
-            pa.isGameOver = true;
-            console.log("ゲームオーバー")
+
+            pa.stopKeyEvent = true;
+            $("div.gameOver").addClass("show");
+            $("span.score").text(pa.score);
+
+            if (highScore === null || pa.score > highScore) {
+                highScore = pa.score;
+                localStorage.setItem("highScore", pa.score);
+            }
+        }
+    })
+
+
+    $("button.restart").on("click", () => {
+        pa.score = 0;
+        $(".score.now >.num").text(0);
+
+        gameField.reset();
+        gameField = new GameField($("main"));
+
+        $("div.gameOver").removeClass("show");
+        $("div.gameClear").removeClass("show");
+
+
+        $(".score.high>.num").text(highScore === null ? 0 : highScore);
+
+        pa.isCleared = false;
+        pa.stopKeyEvent = false;
+
+    })
+
+    $("button.continue").on("click", () => {
+        $("div.gameClear").removeClass("show");
+        pa.stopKeyEvent = false;
+    })
+
+    $("button.rule").on("click", () => {
+        $("div.ruleBack").toggleClass("show")
+    })
+
+
+    //デバッグ用
+    $("html").on("keydown", (e) => {
+        if (e.key == "p") {
+            console.log(pa);
+            console.log(gameField.field);
         }
     })
 })
 
 
-// function randomNum() {
-//     const r = Math.random()
-//     return r < 0.9 ? 0 : 1
-// }
-
-// function randomCood() {
-//     const r = Math.floor(Math.random() * 4);
-//     const s = Math.floor(Math.random() * 4);
-
-//     return [r, s];
-// }
-
-// const emptyCells = (matrix) => {
-//     let emptyCells = [];
-//     matrix.forEach((arr, y) => {
-//         arr.forEach((cell, x) => {
-//             if (cell === null) {
-//                 emptyCells.push([y, x])
-//             }
-//         })
-//     })
-//     return emptyCells;
-// }
-
-// const randomSelect = (arr) => {
-//     const index = Math.floor(Math.random() * arr.length);
-//     return arr[index]
-// }
-
-// const setPanelTo = (gameField) => (yx) => {
-//     const panel = new Panel(...yx, randomNum(), $("main"))
-//     gameField.setField(panel, ...yx)
-// }
-
-// const countEmptyCell = (dir) => (matrix) => (y, x) => {
-
-//     const len = matrix.length;
-//     let re = 0;
-//     for (let i = 0; i < len; i++) {
-//         let yi = y + dir[0] * i;
-//         let xi = x + dir[1] * i;
-//         if (0 <= yi && yi < len && 0 <= xi && xi < len && matrix[yi][xi] == null) {
-//             re++;
-//         }
-//     }
-//     return re;
-// }
-
-// const countEmptyCellUp = countEmptyCell([-1, 0]);

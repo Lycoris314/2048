@@ -75,7 +75,7 @@ class GameField {
 
             const nRPtoNum = nullRemovedPath.map(e => e.num);
 
-
+            //移動先で合体して消滅する条件
             const disapCond = ((arr, n) => {
                 if (arr.length === 0) return false;
                 if (arr[0] !== n) return false;
@@ -105,18 +105,23 @@ class GameField {
 
 
     reset() {
-
+        this.field.flat().forEach(elm => {
+            if (elm !== null) {
+                elm.removeElement();
+            }
+        })
     }
 
     isGameOver() {
 
-        if (this.#field.flat().some(elm => elm === null)) return false;
+        if (this.field.flat().some(elm => elm === null)) return false;
 
-        return noMove(this.#field) && noMove(R.transpose(this.#field));
+        return noMove(this.field) && noMove(R.transpose(this.field));
     }
 
     isGameClear() {
 
+        return this.field.flat().map(elm => elm === null ? null : elm.num).includes(4);//本来10
     }
 
     get field() {

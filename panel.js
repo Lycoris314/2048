@@ -10,11 +10,12 @@ class Panel {
         "skyblue",
         "pink",
         "aqua",
-        "crimson",
+        "coral",
         "gold",
         "greenyellow",
         "lime",
-        "salmon"
+        "salmon",
+        "crimson"
     ]
 
     constructor(x, y, num, jqRoot) {
@@ -31,9 +32,9 @@ class Panel {
     }
 
     union() {
-        this.#num ++;
+        this.#num++;
         this.#element.text(Math.pow(2, this.#num + 1))
-        this.#element.css("background-color", Panel.COLORS[this.#num]);
+        this.#element.css("background-color", Panel.COLORS[this.#num > 10 ? 10 : this.#num]);
     }
 
     slide(y, x) {
@@ -46,7 +47,6 @@ class Panel {
 
     removeElement() {
         this.#element.remove();
-        console.log("remove");
     }
 
     get x() {
