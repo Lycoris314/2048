@@ -1,6 +1,8 @@
 class GameField {
+
+    static MOVE_TIME = 300;
+
     #field;
-    #gameCleared;
     #jqRoot;
 
     constructor(jqRoot) {
@@ -36,12 +38,13 @@ class GameField {
         //どのパネルも移動しなかった場合はセルを追加しない。
         if (R.equals(this.field, outcome)) return { score: 0, inAnimation: false };
 
+
         del.forEach(elm => {
             elm.panel.beforeUnion(dy, dx, elm.moveLength);
         })
         del.forEach(elm => setTimeout(() => {
             elm.panel.removeElement()
-        }, 400)
+        }, GameField.MOVE_TIME)
         );
 
         grow.forEach(elm => elm.union());
@@ -58,6 +61,7 @@ class GameField {
 
         this.putPanel();
 
+
         const score = R.sum(grow.map(elm => Math.pow(2, elm.num + 1)));
         return { score: score, inAnimation: true };
 
@@ -71,7 +75,7 @@ class GameField {
                         dx === 1 ? 3 - x :
                             dx === -1 ? x : null;
 
-            //移動方向にあるパネルたち
+            //移動方向にあるパネルたち(空=nullを含む)
             const path = (() => {
                 let panels = [];
 
@@ -112,13 +116,13 @@ class GameField {
             //以下当パネルは合体しない場合
 
             //pathの途中で他のパネルが合体する場合に1
-            const midDisp = ((arr) => {
+            const midDisp = (arr) => {
                 if (arr.length >= 2 && arr[0] === arr[1]) return 1;
                 if (arr.length === 3 && arr[1] === arr[2]) return 1;
                 return 0;
-            })(nRPtoNum);
+            };
 
-            const r = dist - nRPtoNum.length + midDisp
+            const r = dist - nRPtoNum.length + midDisp(nRPtoNum)
             outcome[y + r * dy][x + r * dx] = field[y][x];
         }
 
@@ -138,24 +142,22 @@ class GameField {
 
         if (this.field.flat().some(elm => elm === null)) return false;
 
-        return noMove(this.field) && noMove(R.transpose(this.field));
+        return noMove(this.field);
     }
 
     isGameClear() {
 
         return this.field.flat()
             .map(elm => elm === null ? null : elm.num)
-            .includes(4);//本来10
+            .includes(10);
     }
 
     get field() {
         return this.#field;
     }
 
-    setField(panel, y, x) {
-        this.#field[y][x] = panel;
-    }
 
+    //空きマスにパネルをランダム追加
     putPanel() {
         R.pipe(
             emptyCells,
@@ -167,6 +169,10 @@ class GameField {
     setPanelTo = (yx) => {
         const panel = new Panel(...yx, randomNum(), this.#jqRoot)
         this.setField(panel, ...yx)
+    }
+
+    setField(panel, y, x) {
+        this.#field[y][x] = panel;
     }
 }
 
@@ -193,14 +199,17 @@ const randomSelect = (arr) => {
     return arr[index]
 }
 
-
+//隣接ペアがすべて異なるかどうか。
 const noMove = (matrix) => {
 
-    for (let arr of matrix) {
-        const row = arr.map(elm => elm.num);
+    function f(mat) {
+        for (let arr of mat) {
+            const row = arr.map(elm => elm.num);
 
-        if (row[0] === row[1] || row[1] === row[2] || row[2] === row[3]) return false;
+            if (row[0] === row[1] || row[1] === row[2] || row[2] === row[3]) return false;
+        }
+        return true;
     }
-    return true;
+    return f(matrix) && f(R.transpose(matrix))
 }
 

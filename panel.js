@@ -4,8 +4,11 @@ class Panel {
     #y;
     #num;
 
+    static MOVE_TIME = 300;
+    static EXPAND_TIME = 200;
+
     static COLORS = [
-        "silver",
+        "silver",//num=0
         "orange",
         "skyblue",
         "pink",
@@ -15,7 +18,7 @@ class Panel {
         "greenyellow",
         "lime",
         "salmon",
-        "crimson"
+        "crimson"//num=10
     ]
 
     constructor(x, y, num, jqRoot) {
@@ -32,7 +35,7 @@ class Panel {
 
         setTimeout(() => {
             this.#element.removeClass("show")
-        }, 400)
+        }, Panel.MOVE_TIME)
 
         jqRoot.append(this.#element)
     }
@@ -43,14 +46,14 @@ class Panel {
         setTimeout(() => {
             this.#element.text(Math.pow(2, this.#num + 1))
             this.#element.css("background-color", Panel.COLORS[this.#num > 10 ? 10 : this.#num]);
-        }, 400)
+        }, Panel.MOVE_TIME)
 
         this.#element.addClass("unionAnimation");
 
         setTimeout(() => {
             this.#element.removeClass("unionAnimation");
 
-        }, 800)
+        }, Panel.MOVE_TIME + Panel.EXPAND_TIME)
     }
 
     //合体して消滅する前の最後の移動アニメーション
@@ -91,6 +94,7 @@ class Panel {
     get num() {
         return this.#num;
     }
+
     get element() {
         return this.#element
     }

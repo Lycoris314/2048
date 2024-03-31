@@ -1,101 +1,76 @@
 $(() => {
 
     //パラメータ
-    const pa = {
+    const p = {
         stopKeyEvent: false,
         ruleShowing: false,
         isCleared: false,
         inAnimation: false,
         score: 0,
-        highScore: localStorage.getItem("highScore"),
+        highScore: Number(localStorage.getItem("highScore")),
     }
 
-    const ANIME_TIME = 400;
+    const MOVE_TIME = 300;
 
     let gameField = new GameField($("main"));
 
-    $(".score.high>.num").text(pa.highScore === null ? 0 : pa.highScore);
+    $(".score.high>.num").text(p.highScore === null ? 0 : p.highScore);
 
 
+    //十字キー
     $("html").on("keydown", (e) => {
 
-        if (pa.stopKeyEvent || pa.ruleShowing || pa.inAnimation) return;
+        if (p.stopKeyEvent || p.ruleShowing || p.inAnimation) return;
 
-
-
-        if (e.key == "ArrowUp" || e.key == "w") {
-
-            const re = gameField.update(-1, 0);
-            pa.score += re.score;
-            $(".score.now >.num").text(pa.score);
-
-            if (re.inAnimation) {
-                pa.inAnimation = true;
-                setTimeout(() => {
-                    pa.inAnimation = false;
-                }, ANIME_TIME)
-            }
+        let r;
+        switch (e.key) {
+            case "ArrowUp":
+            case "w":
+                r = gameField.update(-1, 0);
+                break;
+            case "ArrowDown":
+            case "s":
+                r = gameField.update(1, 0);
+                break;
+            case "ArrowLeft":
+            case "a":
+                r = gameField.update(0, -1);
+                break;
+            case "ArrowRight":
+            case "d":
+                r = gameField.update(0, 1);
+                break;
+            default:
+                return;
         }
 
-        else if (e.key == "ArrowDown" || e.key == "s") {
+        p.score += r.score;
+        $(".score.now >.num").text(p.score);
 
-            const re = gameField.update(1, 0);
-            pa.score += re.score;
-            $(".score.now >.num").text(pa.score);
-
-            if (re.inAnimation) {
-                pa.inAnimation = true;
-                setTimeout(() => {
-                    pa.inAnimation = false;
-                }, ANIME_TIME)
-            }
+        //アニメーションが生じるならその間イベントの受付を停止する。
+        if (r.inAnimation) {
+            p.inAnimation = true;
+            setTimeout(() => {
+                p.inAnimation = false;
+            }, MOVE_TIME)
         }
 
-        else if (e.key == "ArrowLeft" || e.key == "a") {
+        //ゲームクリア
+        if (gameField.isGameClear() && !p.isCleared) {
 
-            const re = gameField.update(0, -1);
-            pa.score += re.score;
-            $(".score.now >.num").text(pa.score);
-
-            if (re.inAnimation) {
-                pa.inAnimation = true;
-                setTimeout(() => {
-                    pa.inAnimation = false;
-                }, ANIME_TIME)
-            }
-        }
-
-        else if (e.key == "ArrowRight" || e.key == "d") {
-
-            const re = gameField.update(0, 1);
-            pa.score += re.score;
-            $(".score.now >.num").text(pa.score);
-
-            if (re.inAnimation) {
-                pa.inAnimation = true;
-                setTimeout(() => {
-                    pa.inAnimation = false;
-                }, ANIME_TIME)
-            }
-        }
-
-
-        if (gameField.isGameClear() && !pa.isCleared) {
-
-            pa.stopKeyEvent = true;
+            p.stopKeyEvent = true;
+            p.isCleared = true;
 
             $("div.gameClear").addClass("show");
-            $("span.score").text(pa.score);
-
-            pa.isCleared = true;
+            $("span.score").text(p.score);
 
             //記録塗り替え
-            if (pa.highScore === null || pa.score > pa.highScore) {
-                pa.highScore = pa.score;
-                localStorage.setItem("highScore", pa.score);
+            if (p.highScore === null || p.score > p.highScore) {
+                p.highScore = p.score;
+                localStorage.setItem("highScore", p.score);
             }
         }
-
+        //ゲームオーバー
         else if (gameField.isGameOver()) {
             doWhenGameover();
         }
@@ -103,20 +78,21 @@ $(() => {
 
     function doWhenGameover() {
 
-        pa.stopKeyEvent = true;
+        p.stopKeyEvent = true;
 
         $("div.gameOver").addClass("show");
-        $("span.score").text(pa.score);
+        $("span.score").text(p.score);
 
-        if (pa.highScore === null || pa.score > pa.highScore) {
-            pa.highScore = pa.score;
-            localStorage.setItem("highScore", pa.score);
+        if (p.highScore === null || p.score > p.highScore) {
+            p.highScore = p.score;
+            localStorage.setItem("highScore", p.score);
         }
     }
 
     //リスタートボタン
     $("button.restart").on("click", () => {
-        pa.score = 0;
+
+        p.score = 0;
         $(".score.now >.num").text(0);
 
         gameField.reset();
@@ -126,10 +102,10 @@ $(() => {
         $("div.gameClear").removeClass("show");
 
 
-        $(".score.high>.num").text(pa.highScore === null ? 0 : pa.highScore);
+        $(".score.high>.num").text(p.highScore === null ? 0 : p.highScore);
 
-        pa.isCleared = false;
-        pa.stopKeyEvent = false;
+        p.isCleared = false;
+        p.stopKeyEvent = false;
 
     })
 
@@ -138,8 +114,9 @@ $(() => {
 
         $("div.gameClear").removeClass("show");
 
-        pa.stopKeyEvent = false;
+        p.stopKeyEvent = false;
 
+        //ゲームクリア→続ける→即ゲームオーバー
         if (gameField.isGameOver()) {
             doWhenGameover();
         }
@@ -149,6 +126,7 @@ $(() => {
     $("button.rule, div.ruleBack").on("click", _ => {
 
         $("div.ruleBack").toggleClass("show");
+        p.ruleShowing = !p.ruleShowing
     })
 
     $("div.rulePage").on("click", e => {
@@ -159,7 +137,7 @@ $(() => {
     //デバッグ用
     $("html").on("keydown", (e) => {
         if (e.key == "p") {
-            console.log(pa);
+            console.log(p);
             console.log(gameField.field);
         }
     })
