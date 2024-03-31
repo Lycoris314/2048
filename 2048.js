@@ -14,14 +14,15 @@ class GameField {
         this.putPanel();
     }
 
-
-
     update(dy, dx) {
 
+        //移動の結果をこれに入れていく
         let outcome = new Array(4).fill(null)
             .map(_ => new Array(4).fill(null))
 
+        //衝突して消滅するパネルと最後の移動距離を入れていく
         let del = [];
+        //衝突されてnumが増えるパネルを入れていく
         let grow = [];
 
         this.field.forEach((arr, y) => {
@@ -32,10 +33,17 @@ class GameField {
             })
         })
 
-        //結果変化しなかった場合はセルを追加しない。
-        if (R.equals(this.field, outcome)) return 0;
+        //どのパネルも移動しなかった場合はセルを追加しない。
+        if (R.equals(this.field, outcome)) return { score: 0, inAnimation: false };
 
-        del.forEach(elm => elm.removeElement());
+        del.forEach(elm => {
+            elm.panel.beforeUnion(dy, dx, elm.moveLength);
+        })
+        del.forEach(elm => setTimeout(() => {
+            elm.panel.removeElement()
+        }, 400)
+        );
+
         grow.forEach(elm => elm.union());
 
 
@@ -51,17 +59,19 @@ class GameField {
         this.putPanel();
 
         const score = R.sum(grow.map(elm => Math.pow(2, elm.num + 1)));
-        return score;
+        return { score: score, inAnimation: true };
 
 
         function eachUpdate(dy, dx, y, x, panel, field) {
 
+            //移動方向に向かってフィールド境界までの距離
             const dist =
                 dy === 1 ? 3 - y :
                     dy === -1 ? y :
                         dx === 1 ? 3 - x :
                             dx === -1 ? x : null;
 
+            //移動方向にあるパネルたち
             const path = (() => {
                 let panels = [];
 
@@ -71,6 +81,7 @@ class GameField {
                 return panels;
             })()
 
+            //pathからnullを抜いたもの
             const nullRemovedPath = path.filter(elm => elm !== null);
 
             const nRPtoNum = nullRemovedPath.map(e => e.num);
@@ -84,12 +95,23 @@ class GameField {
                 return true;
             })(nRPtoNum, panel.num)
 
+            //pathの途中で他のパネルが合体する場合に1
+            const midDisp2 = (arr) => {
+                if (arr.length === 3 && arr[1] === arr[2]) return 1;
+                return 0;
+            }
+
+            //rは移動距離
             if (disapCond) {
-                del.push(panel);
+                const r = dist + 1 - nRPtoNum.length + midDisp2(nRPtoNum);
+                del.push({ panel: panel, moveLength: r });
                 grow.push(nullRemovedPath[0])
                 return;
             }
 
+            //以下当パネルは合体しない場合
+
+            //pathの途中で他のパネルが合体する場合に1
             const midDisp = ((arr) => {
                 if (arr.length >= 2 && arr[0] === arr[1]) return 1;
                 if (arr.length === 3 && arr[1] === arr[2]) return 1;
@@ -121,7 +143,9 @@ class GameField {
 
     isGameClear() {
 
-        return this.field.flat().map(elm => elm === null ? null : elm.num).includes(4);//本来10
+        return this.field.flat()
+            .map(elm => elm === null ? null : elm.num)
+            .includes(4);//本来10
     }
 
     get field() {

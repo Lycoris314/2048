@@ -19,22 +19,53 @@ class Panel {
     ]
 
     constructor(x, y, num, jqRoot) {
+
         this.#x = x;
         this.#y = y;
         this.#num = num;
+
         this.#element = $("<div>")
-            .addClass("panel")
+            .addClass("panel show")
             .addClass("pos" + x + y)
             .text(Math.pow(2, num + 1))
             .css("background-color", Panel.COLORS[num])
+
+        setTimeout(() => {
+            this.#element.removeClass("show")
+        }, 400)
 
         jqRoot.append(this.#element)
     }
 
     union() {
         this.#num++;
-        this.#element.text(Math.pow(2, this.#num + 1))
-        this.#element.css("background-color", Panel.COLORS[this.#num > 10 ? 10 : this.#num]);
+
+        setTimeout(() => {
+            this.#element.text(Math.pow(2, this.#num + 1))
+            this.#element.css("background-color", Panel.COLORS[this.#num > 10 ? 10 : this.#num]);
+        }, 400)
+
+        this.#element.addClass("unionAnimation");
+
+        setTimeout(() => {
+            this.#element.removeClass("unionAnimation");
+
+        }, 800)
+    }
+
+    //合体して消滅する前の最後の移動アニメーション
+    beforeUnion(dy, dx, length) {
+
+        let top = Number(this.#element.css("top").slice(0, -2));
+        let left = Number(this.#element.css("left").slice(0, -2));
+
+        if (dy === 1) { top += 160 * length }
+        else if (dy === -1) { top -= 160 * length }
+        else if (dx === 1) { left += 160 * length }
+        else if (dx === -1) { left -= 160 * length }
+
+        this.#element.css("top", top + "px");
+        this.#element.css("left", left + "px");
     }
 
     slide(y, x) {
@@ -60,4 +91,8 @@ class Panel {
     get num() {
         return this.#num;
     }
+    get element() {
+        return this.#element
+    }
 }
+
