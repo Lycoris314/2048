@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2048</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <script src="jquery.js"></script>
     <script src="ramda.min.js"></script>
     <script src="panel.js"></script>
     <script src="2048.js"></script>
     <script src="main.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <header>
-            <h1>2048</h1>
-            <div class="scores">
-                <div class="score high">
-                    <p>ハイスコア</p>
-                    <p class="num">0</p>
-                </div>
-                <div class="score now">
-                    <p>スコア</p>
-                    <p class="num">0</p>
-                </div>
-            </div>
-        </header>
+      <header>
+        <h1>2048</h1>
+        <div class="scores">
+          <div class="score high">
+            <p>ハイスコア</p>
+            <p class="num">0</p>
+          </div>
+          <div class="score now">
+            <p>スコア</p>
+            <p class="num">0</p>
+          </div>
+        </div>
+      </header>
 
-        <main>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
+      <main>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
 
-            <div class="gameOver">
-                <p>ゲームオーバー!</p>
-                <p>スコア：<span class="score"></span></p>
-                <button class="restart">リスタート</button>
-            </div>
-            <div class="gameClear">
-                <p>ゲームクリアー！</p>
-                <p>スコア：<span class="score"></span></p>
-                <div class="btns">
-                    <button class="continue">つづける</button>
-                    <button class="restart">リスタート</button>
-                </div>
-            </div>
-        </main>
-        <button class="restart">リスタート</button>
-        <button class="rule">ルール</button>
+        <div class="gameOver">
+          <p>ゲームオーバー!</p>
+          <p>スコア：<span class="score"></span></p>
+          <button class="restart">リスタート</button>
+        </div>
+        <div class="gameClear">
+          <p>ゲームクリアー！</p>
+          <p>スコア：<span class="score"></span></p>
+          <div class="btns">
+            <button class="continue">つづける</button>
+            <button class="restart">リスタート</button>
+          </div>
+        </div>
+      </main>
+      <button class="restart">リスタート</button>
+      <button class="rule">ルール</button>
     </div>
     <div class="ruleBack">
-        <div class="rulePage">
-            <h2>ルール</h2>
-            <p>同じ数字のパネルを合体させて数字を大きくしよう</p>
-            <p>目指せ <span class="bold">2048</span> !</p>
-            <hr>
-            <h2>操作方法</h2>
-            <p>※キーボード操作のみ受け付けます。</p>
-            <p class="under">上下左右キー(またはWSADキー)</p>
-            <p>同じパネルが重なると合体して数値が２倍となり、合体した値がスコアに加算されます。</p>
-        </div>
+      <div class="rulePage">
+        <h2>ルール</h2>
+        <p>同じ数字のパネルを合体させて数字を大きくしよう</p>
+        <p>目指せ <span class="bold">2048</span> !</p>
+        <hr />
+        <h2>操作方法</h2>
+        <p>※キーボード操作のみ受け付けます。</p>
+        <p class="under">上下左右キー(またはWSADキー)</p>
+        <p>
+          同じパネルが重なると合体して数値が２倍となり、合体した値がスコアに加算されます。
+        </p>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

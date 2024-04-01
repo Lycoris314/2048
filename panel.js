@@ -59,24 +59,32 @@ class Panel {
     //合体して消滅する前の最後の移動アニメーション
     beforeUnion(dy, dx, length) {
 
+        //これだと何故かうまくいかない
+        // let y = this.y + length * dy;
+        // let x = this.x + length * dx;
+        // this.#element.removeClass("pos00 pos01 pos02 pos03 pos10 pos11 pos12 pos13 pos20 pos21 pos22 pos23 pos30 pos31 pos32 pos33");
+        // this.#element.addClass("pos" + y + x);
+
         let top = Number(this.#element.css("top").slice(0, -2));
         let left = Number(this.#element.css("left").slice(0, -2));
 
-        if (dy === 1) { top += 160 * length }
-        else if (dy === -1) { top -= 160 * length }
-        else if (dx === 1) { left += 160 * length }
-        else if (dx === -1) { left -= 160 * length }
+        top += 160 * length * dy;
+        left += 160 * length * dx
 
         this.#element.css("top", top + "px");
         this.#element.css("left", left + "px");
+
+        setTimeout(_ => {
+            this.removeElement();
+        }, Panel.MOVE_TIME)
     }
 
     slide(y, x) {
+
         this.#element.removeClass("pos00 pos01 pos02 pos03 pos10 pos11 pos12 pos13 pos20 pos21 pos22 pos23 pos30 pos31 pos32 pos33");
         this.#x = x;
         this.#y = y;
         this.#element.addClass("pos" + y + x);
-
     }
 
     removeElement() {

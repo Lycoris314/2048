@@ -1,7 +1,5 @@
 class GameField {
 
-    static MOVE_TIME = 300;
-
     #field;
     #jqRoot;
 
@@ -42,10 +40,6 @@ class GameField {
         del.forEach(elm => {
             elm.panel.beforeUnion(dy, dx, elm.moveLength);
         })
-        del.forEach(elm => setTimeout(() => {
-            elm.panel.removeElement()
-        }, GameField.MOVE_TIME)
-        );
 
         grow.forEach(elm => elm.union());
 
@@ -157,7 +151,7 @@ class GameField {
     }
 
 
-    //空きマスにパネルをランダム追加
+    //空きマスにパネルをランダム追加する。
     putPanel() {
         R.pipe(
             emptyCells,
