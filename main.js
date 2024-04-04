@@ -1,5 +1,5 @@
 $(() => {
-    //パラメータ
+    //パラメーター
     const p = {
         stopKeyEvent: false, //ゲームオーバー画面など表示中
         ruleShowing: false, //ルール画面表示中
