@@ -108,9 +108,9 @@ class GameField {
                 return;
             }
 
-            //以下当パネルは合体しない場合
+            //以下当パネルは合体しない場合。
 
-            //pathの途中で他のパネルが合体する場合に1
+            //pathの途中で他のパネルが合体する場合に1、それ以外は0。
             const midDisp = (arr) => {
                 if (arr.length >= 2 && arr[0] === arr[1]) return 1;
                 if (arr.length === 3 && arr[1] === arr[2]) return 1;
