@@ -1,4 +1,11 @@
 $(() => {
+    const CELL_NUM = 4;
+    for (let i = 0; i < CELL_NUM * CELL_NUM; i++) {
+        $("main").prepend($("<div class='cell'>"));
+    }
+
+    const MOVE_TIME = 300; //パネルの移動時間(ms)
+
     //パラメーター
     const p = {
         stopKeyEvent: false, //ゲームオーバー画面など表示中
@@ -8,8 +15,6 @@ $(() => {
         score: 0,
         highScore: Number(localStorage.getItem("highScore")),
     };
-
-    const MOVE_TIME = 300; //パネルの移動時間(ms)
 
     let gameField = new GameField($("main"));
 

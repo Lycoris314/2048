@@ -1,6 +1,11 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
 
+$CELL_NUM: 4;
+$FIELD_SIZE: 630;
+$CELL_GAP: 10;
+$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $CELL_GAP) / $CELL_NUM);
+
 :root {
     --green: darkgreen;
     --moveTime: 300ms;
@@ -62,12 +67,12 @@ div.scores {
 
 main {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 10px;
-    padding: 10px;
-    width: 630px;
-    height: 630px;
+    grid-template-columns: repeat($CELL_NUM, 1fr);
+    grid-template-rows: repeat($CELL_NUM, 1fr);
+    gap: $CELL_GAP + px;
+    padding: $CELL_GAP + px;
+    width: $FIELD_SIZE + px;
+    height: $FIELD_SIZE + px;
     background-color: var(--green);
     position: relative;
 
@@ -77,25 +82,9 @@ main {
     }
 }
 
-button.restart,
-button.continue {
-    display: block;
-    width: 80%;
-    height: 40px;
-    margin: 40px auto;
-    background-color: white;
-    &:hover {
-        background-color: rgb(240, 251, 230);
-    }
-    border: 2px solid var(--green);
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
 .panel {
-    width: 150px;
-    height: 150px;
+    width: $CELL_SIZE + px;
+    height: $CELL_SIZE + px;
     border-radius: 5px;
     display: grid;
     place-content: center;
@@ -133,111 +122,15 @@ button.continue {
     }
 }
 
-@for $i from 0 to 3 {
-    @for $j from 0 to 3 {
+@for $i from 0 to $CELL_NUM {
+    @for $j from 0 to $CELL_NUM {
         .panel.pos#{$i}#{$j} {
             position: absolute;
-            top: #{10+160 * i}px;
-            left: #{10+160 * j}px;
+            top: #{$CELL_GAP + ($CELL_SIZE + $CELL_GAP) * $i} + px;
+            left: #{$CELL_GAP + ($CELL_SIZE + $CELL_GAP) * $j} + px;
         }
     }
 }
-
-// .panel.pos00 {
-//     position: absolute;
-//     top: 10px;
-//     left: 10px;
-// }
-
-// .panel.pos01 {
-//     position: absolute;
-//     top: 10px;
-//     left: 170px;
-// }
-
-// .panel.pos02 {
-//     position: absolute;
-//     top: 10px;
-//     left: 330px;
-// }
-
-// .panel.pos03 {
-//     position: absolute;
-//     top: 10px;
-//     left: 490px;
-// }
-
-// .panel.pos10 {
-//     position: absolute;
-//     top: 170px;
-//     left: 10px;
-// }
-
-// .panel.pos11 {
-//     position: absolute;
-//     top: 170px;
-//     left: 170px;
-// }
-
-// .panel.pos12 {
-//     position: absolute;
-//     top: 170px;
-//     left: 330px;
-// }
-
-// .panel.pos13 {
-//     position: absolute;
-//     top: 170px;
-//     left: 490px;
-// }
-
-// .panel.pos20 {
-//     position: absolute;
-//     top: 330px;
-//     left: 10px;
-// }
-
-// .panel.pos21 {
-//     position: absolute;
-//     top: 330px;
-//     left: 170px;
-// }
-
-// .panel.pos22 {
-//     position: absolute;
-//     top: 330px;
-//     left: 330px;
-// }
-
-// .panel.pos23 {
-//     position: absolute;
-//     top: 330px;
-//     left: 490px;
-// }
-
-// .panel.pos30 {
-//     position: absolute;
-//     top: 490px;
-//     left: 10px;
-// }
-
-// .panel.pos31 {
-//     position: absolute;
-//     top: 490px;
-//     left: 170px;
-// }
-
-// .panel.pos32 {
-//     position: absolute;
-//     top: 490px;
-//     left: 330px;
-// }
-
-// .panel.pos33 {
-//     position: absolute;
-//     top: 490px;
-//     left: 490px;
-// }
 
 div.gameOver,
 div.gameClear {
@@ -263,6 +156,22 @@ div.btns {
     display: flex;
     gap: 30px;
     width: 300px;
+}
+
+button.restart,
+button.continue {
+    display: block;
+    width: 80%;
+    height: 40px;
+    margin: 40px auto;
+    background-color: white;
+    &:hover {
+        background-color: rgb(240, 251, 230);
+    }
+    border: 2px solid var(--green);
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button.rule {
