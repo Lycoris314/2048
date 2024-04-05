@@ -1,6 +1,6 @@
 $(() => {
-    const CELL_NUM = 4;
-    for (let i = 0; i < CELL_NUM * CELL_NUM; i++) {
+    //背景マス描画
+    for (let i = 0; i < Common.CELL_NUM * Common.CELL_NUM; i++) {
         $("main").prepend($("<div class='cell'>"));
     }
 

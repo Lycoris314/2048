@@ -1,10 +1,10 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
 
-$CELL_NUM: 4;
+$CELL_NUM: 3;
 $FIELD_SIZE: 630;
-$CELL_GAP: 10;
-$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $CELL_GAP) / $CELL_NUM);
+$GAP: 10;
+$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
 
 :root {
     --green: darkgreen;
@@ -69,8 +69,8 @@ main {
     display: grid;
     grid-template-columns: repeat($CELL_NUM, 1fr);
     grid-template-rows: repeat($CELL_NUM, 1fr);
-    gap: $CELL_GAP + px;
-    padding: $CELL_GAP + px;
+    gap: $GAP + px;
+    padding: $GAP + px;
     width: $FIELD_SIZE + px;
     height: $FIELD_SIZE + px;
     background-color: var(--green);
@@ -85,6 +85,7 @@ main {
 .panel {
     width: $CELL_SIZE + px;
     height: $CELL_SIZE + px;
+    position: absolute;
     border-radius: 5px;
     display: grid;
     place-content: center;
@@ -125,9 +126,8 @@ main {
 @for $i from 0 to $CELL_NUM {
     @for $j from 0 to $CELL_NUM {
         .panel.pos#{$i}#{$j} {
-            position: absolute;
-            top: #{$CELL_GAP + ($CELL_SIZE + $CELL_GAP) * $i} + px;
-            left: #{$CELL_GAP + ($CELL_SIZE + $CELL_GAP) * $j} + px;
+            top: #{$GAP + ($CELL_SIZE + $GAP) * $i} + px;
+            left: #{$GAP + ($CELL_SIZE + $GAP) * $j} + px;
         }
     }
 }

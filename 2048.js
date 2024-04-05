@@ -5,9 +5,9 @@ class GameField {
     constructor(jqRoot) {
         this.#jqRoot = jqRoot;
 
-        this.#field = new Array(4)
+        this.#field = new Array(Common.CELL_NUM)
             .fill(null)
-            .map((_) => new Array(4).fill(null));
+            .map((_) => new Array(Common.CELL_NUM).fill(null));
 
         this.putPanel();
         this.putPanel();
@@ -15,9 +15,9 @@ class GameField {
 
     update(dy, dx) {
         //移動の結果をこれに入れていく
-        let outcome = new Array(4)
+        let outcome = new Array(Common.CELL_NUM)
             .fill(null)
-            .map((_) => new Array(4).fill(null));
+            .map((_) => new Array(Common.CELL_NUM).fill(null));
 
         //衝突して消滅するパネルと最後の移動距離を入れていく
         let del = [];
@@ -60,11 +60,11 @@ class GameField {
             //移動方向に向かってフィールド境界までの距離
             const dist =
                 dy === 1
-                    ? 3 - y
+                    ? Common.CELL_NUM - y - 1
                     : dy === -1
                     ? y
                     : dx === 1
-                    ? 3 - x
+                    ? Common.CELL_NUM - x - 1
                     : dx === -1
                     ? x
                     : null;
@@ -85,40 +85,42 @@ class GameField {
             const nRPtoNum = nullRemovedPath.map((e) => e.num);
 
             //移動先で合体して消滅する条件
-            const disapCond = ((arr, n) => {
-                if (arr.length === 0) return false;
-                if (arr[0] !== n) return false;
-                if (arr.length === 2 && arr[0] === arr[1]) return false;
-                if (arr.length === 3 && arr[0] === arr[1] && arr[1] !== arr[2])
-                    return false;
-                return true;
-            })(nRPtoNum, panel.num);
+            const disapCondAndCount = (arr, n) => {
+                let count = 0;
+                const disapCond = (arr, n) => {
+                    if (arr.length === 0) return false;
 
-            //pathの途中で他のパネルが合体する場合に1、それ以外は0。
-            const midDisp2 = (arr) => {
-                if (arr.length === 3 && arr[1] === arr[2]) return 1;
-                return 0;
+                    if (arr.length === 1) {
+                        if (arr[0] === n) {
+                            count++;
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    if (arr.at(-1) === arr.at(-2)) {
+                        count++;
+                        return disapCond(arr.slice(0, -2), n);
+                    } else {
+                        return disapCond(arr.slice(0, -1), n);
+                    }
+                };
+                return [disapCond(arr, n), count];
             };
 
-            //rは移動距離
-            if (disapCond) {
-                const r = dist + 1 - nRPtoNum.length + midDisp2(nRPtoNum);
+            const dCAC = disapCondAndCount(nRPtoNum, panel.num);
+
+            //当パネルの移動距離
+            const r = dist - nRPtoNum.length + dCAC[1];
+
+            if (dCAC[0]) {
+                //当パネルが合体する場合
                 del.push({ panel: panel, moveLength: r });
                 grow.push(nullRemovedPath[0]);
-                return;
+            } else {
+                //当パネルは合体しない場合。
+                outcome[y + r * dy][x + r * dx] = field[y][x];
             }
-
-            //以下当パネルは合体しない場合。
-
-            //pathの途中で他のパネルが合体する場合に1、それ以外は0。
-            const midDisp = (arr) => {
-                if (arr.length >= 2 && arr[0] === arr[1]) return 1;
-                if (arr.length === 3 && arr[1] === arr[2]) return 1;
-                return 0;
-            };
-
-            const r = dist - nRPtoNum.length + midDisp(nRPtoNum);
-            outcome[y + r * dy][x + r * dx] = field[y][x];
         }
     }
 
@@ -189,8 +191,9 @@ const noMove = (matrix) => {
     function f(mat) {
         for (let arr of mat) {
             const row = arr.map((elm) => elm.num);
-
-            if (row[0] === row[1] || row[1] === row[2] || row[2] === row[3])
+            if (
+                R.range(0, matrix.length - 1).some((n) => row[n] === row[n + 1])
+            )
                 return false;
         }
         return true;
