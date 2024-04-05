@@ -94,7 +94,7 @@ class GameField {
                 return true;
             })(nRPtoNum, panel.num);
 
-            //pathの途中で他のパネルが合体する場合に1
+            //pathの途中で他のパネルが合体する場合に1、それ以外は0。
             const midDisp2 = (arr) => {
                 if (arr.length === 3 && arr[1] === arr[2]) return 1;
                 return 0;
