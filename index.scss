@@ -1,11 +1,6 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
 
-$CELL_NUM: 3;
-$FIELD_SIZE: 630;
-$GAP: 10;
-$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
-
 :root {
     --green: darkgreen;
     --moveTime: 300ms;
@@ -64,6 +59,11 @@ div.scores {
         }
     }
 }
+
+$CELL_NUM: 4;
+$FIELD_SIZE: 630;
+$GAP: 10;
+$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
 
 main {
     display: grid;

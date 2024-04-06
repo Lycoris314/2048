@@ -59,8 +59,8 @@ div.scores div.score > p {
 
 main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 10px;
   padding: 10px;
   width: 630px;
@@ -74,8 +74,8 @@ main > div.cell {
 }
 
 .panel {
-  width: 203.3333333333px;
-  height: 203.3333333333px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   border-radius: 5px;
   display: grid;
@@ -119,42 +119,77 @@ main > div.cell {
 
 .panel.pos01 {
   top: 10px;
-  left: 223.3333333333px;
+  left: 170px;
 }
 
 .panel.pos02 {
   top: 10px;
-  left: 436.6666666667px;
+  left: 330px;
+}
+
+.panel.pos03 {
+  top: 10px;
+  left: 490px;
 }
 
 .panel.pos10 {
-  top: 223.3333333333px;
+  top: 170px;
   left: 10px;
 }
 
 .panel.pos11 {
-  top: 223.3333333333px;
-  left: 223.3333333333px;
+  top: 170px;
+  left: 170px;
 }
 
 .panel.pos12 {
-  top: 223.3333333333px;
-  left: 436.6666666667px;
+  top: 170px;
+  left: 330px;
+}
+
+.panel.pos13 {
+  top: 170px;
+  left: 490px;
 }
 
 .panel.pos20 {
-  top: 436.6666666667px;
+  top: 330px;
   left: 10px;
 }
 
 .panel.pos21 {
-  top: 436.6666666667px;
-  left: 223.3333333333px;
+  top: 330px;
+  left: 170px;
 }
 
 .panel.pos22 {
-  top: 436.6666666667px;
-  left: 436.6666666667px;
+  top: 330px;
+  left: 330px;
+}
+
+.panel.pos23 {
+  top: 330px;
+  left: 490px;
+}
+
+.panel.pos30 {
+  top: 490px;
+  left: 10px;
+}
+
+.panel.pos31 {
+  top: 490px;
+  left: 170px;
+}
+
+.panel.pos32 {
+  top: 490px;
+  left: 330px;
+}
+
+.panel.pos33 {
+  top: 490px;
+  left: 490px;
 }
 
 div.gameOver,

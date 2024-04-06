@@ -84,7 +84,8 @@ class Panel {
         this.#element.css("left", left + "px");
 
         setTimeout((_) => {
-            this.removeElement();
+            this.#element.remove();
+            // this.removeElement();
         }, Panel.MOVE_TIME);
     }
 
@@ -95,9 +96,9 @@ class Panel {
         this.#element.addClass("pos" + y + x);
     }
 
-    removeElement() {
-        this.#element.remove();
-    }
+    // removeElement() {
+    //     this.#element.remove();
+    // }
 
     get x() {
         return this.#x;
