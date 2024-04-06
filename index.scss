@@ -60,10 +60,10 @@ div.scores {
     }
 }
 
-$CELL_NUM: 5;
+// $CELL_NUM: 5;
 $FIELD_SIZE: 630;
 $GAP: 10;
-$CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
+// $CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
 
 main {
     display: grid;
@@ -89,7 +89,7 @@ main {
     border-radius: 5px;
     display: grid;
     place-content: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     transition: var(--moveTime);
     z-index: 2;
@@ -123,14 +123,14 @@ main {
     }
 }
 
-@for $i from 0 to $CELL_NUM {
-    @for $j from 0 to $CELL_NUM {
-        .panel.pos#{$i}#{$j} {
-            top: #{$GAP + ($CELL_SIZE + $GAP) * $i} + px;
-            left: #{$GAP + ($CELL_SIZE + $GAP) * $j} + px;
-        }
-    }
-}
+// @for $i from 0 to $CELL_NUM {
+//     @for $j from 0 to $CELL_NUM {
+//         .panel.pos#{$i}#{$j} {
+//             top: #{$GAP + ($CELL_SIZE + $GAP) * $i} + px;
+//             left: #{$GAP + ($CELL_SIZE + $GAP) * $j} + px;
+//         }
+//     }
+// }
 
 div.gameOver,
 div.gameClear {
@@ -192,13 +192,32 @@ button.rule {
     transition: 0.3s;
 }
 
+button.back {
+    position: absolute;
+    bottom: 0;
+    right: 200px;
+    background-color: var(--green);
+    &:hover {
+        background-color: green;
+    }
+    color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 20px 20px 0 0;
+    border: none;
+    z-index: 50;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
 div.rulePage {
-    background-color: white;
+    background-color: whitesmoke;
     width: 80%;
-    height: 100%;
+    height: calc(100vh - 100px);
     margin: 50px auto 0;
-    padding: 10px;
+    padding: 20px 10px;
     font-size: 1.1rem;
+    overflow-y: scroll;
 
     > p {
         font-family: sans-serif;

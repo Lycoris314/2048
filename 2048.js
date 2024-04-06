@@ -36,10 +36,11 @@ class GameField {
         if (R.equals(this.field, outcome))
             return { score: 0, inAnimation: false };
 
+        //衝突する側のアニメーション(衝突後消える)
         del.forEach((elm) => {
             elm.panel.beforeUnion(dy, dx, elm.moveLength);
         });
-
+        //衝突される側のアニメーション
         grow.forEach((elm) => elm.union());
 
         this.#field = outcome;
@@ -53,6 +54,7 @@ class GameField {
 
         this.putPanel();
 
+        //スコアを増やす
         const score = R.sum(grow.map((elm) => Math.pow(2, elm.num + 1)));
         return { score: score, inAnimation: true };
 
@@ -84,7 +86,7 @@ class GameField {
 
             const nRPtoNum = nullRemovedPath.map((e) => e.num);
 
-            //移動先で合体して消滅する条件
+            //移動先で当パネルが合体して消滅する条件と、path上で合体するパネルの組の数(自身の合体も含む)を返す。
             const disapCondAndCount = (arr, n) => {
                 let count = 0;
                 const disapCond = (arr, n) => {
@@ -127,7 +129,7 @@ class GameField {
     reset() {
         this.field.flat().forEach((elm) => {
             if (elm !== null) {
-                elm.removeElement();
+                elm.disappear();
             }
         });
     }
@@ -139,10 +141,21 @@ class GameField {
     }
 
     isGameClear() {
+        const c =
+            Common.CELL_NUM === 3
+                ? 7
+                : Common.CELL_NUM === 4
+                ? 10
+                : Common.CELL_NUM === 5
+                ? 12
+                : Common.CELL_NUM === 6
+                ? 14
+                : null;
+
         return this.field
             .flat()
             .map((elm) => (elm === null ? null : elm.num))
-            .includes(10);
+            .includes(c);
     }
 
     get field() {
@@ -166,7 +179,25 @@ class GameField {
 
 const randomNum = () => {
     const r = Math.random();
-    return r < 0.9 ? 0 : 1;
+    switch (Common.CELL_NUM) {
+        case 3:
+        case 4:
+            return r < 0.9 ? 0 : 1;
+        case 5:
+            return r < 0.4 ? 0 : r < 0.7 ? 1 : r < 0.9 ? 2 : 3;
+        case 6:
+            return r < 0.3
+                ? 0
+                : r < 0.5
+                ? 1
+                : r < 0.7
+                ? 2
+                : r < 0.8
+                ? 3
+                : r < 0.9
+                ? 4
+                : 5;
+    }
 };
 
 const emptyCells = (matrix) => {

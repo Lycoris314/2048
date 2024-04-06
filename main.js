@@ -13,7 +13,7 @@ $(() => {
         isCleared: false,
         inAnimation: false,
         score: 0,
-        highScore: Number(localStorage.getItem("highScore")),
+        highScore: Number(localStorage.getItem("highScore" + Common.CELL_NUM)),
     };
 
     let gameField = new GameField($("main"));
@@ -68,7 +68,7 @@ $(() => {
             //記録塗り替え
             if (p.highScore === null || p.score > p.highScore) {
                 p.highScore = p.score;
-                localStorage.setItem("highScore", p.score);
+                localStorage.setItem("highScore" + Common.CELL_NUM, p.score);
             }
         }
         //ゲームオーバー
@@ -85,7 +85,7 @@ $(() => {
 
         if (p.highScore === null || p.score > p.highScore) {
             p.highScore = p.score;
-            localStorage.setItem("highScore", p.score);
+            localStorage.setItem("highScore" + Common.CELL_NUM, p.score);
         }
     }
 
@@ -126,6 +126,11 @@ $(() => {
 
     $("div.rulePage").on("click", (e) => {
         e.stopPropagation();
+    });
+
+    //戻るボタン
+    $("button.back").on("click", () => {
+        location.assign("start.html");
     });
 
     //デバッグ用

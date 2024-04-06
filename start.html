@@ -5,30 +5,88 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>2048</title>
         <link rel="stylesheet" href="start.css" />
+        <script src="jquery.js"></script>
+        <script src="ramda.min.js"></script>
+        <script src="start.js"></script>
     </head>
     <body>
         <div class="container">
             <h1>2048</h1>
-            <p>サイズを選択</p>
+            <h2>サイズを選択</h2>
             <form action="index.php" method="get">
                 <p>
-                    <label for="3">3</label
+                    <label for="3">3×3</label
                     ><input type="radio" name="size" id="3" value="3" />
                 </p>
                 <p>
-                    <label for="4" class="bold">4</label
+                    <label for="4" class="bold">4×4</label
                     ><input type="radio" name="size" id="4" value="4" checked />
                 </p>
                 <p>
-                    <label for="5">5</label
+                    <label for="5">5×5</label
                     ><input type="radio" name="size" id="5" value="5" />
                 </p>
                 <p>
-                    <label for="6">6</label
+                    <label for="6">6×6</label
                     ><input type="radio" name="size" id="6" value="6" />
                 </p>
-                <button class="start">スタート</button>
+                <button class="start">ゲームスタート</button>
             </form>
+            <h2>ハイスコア</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>3×3</td>
+                        <td class="score3"></td>
+                    </tr>
+                    <tr>
+                        <td>4×4</td>
+                        <td class="score4"></td>
+                    </tr>
+                    <tr>
+                        <td>5×5</td>
+                        <td class="score5"></td>
+                    </tr>
+                    <tr>
+                        <td>6×6</td>
+                        <td class="score6"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="rule">ルール</button>
+        </div>
+
+        <div class="ruleBack">
+            <div class="rulePage">
+                <h2>ルール</h2>
+                <p>
+                    パネルを動かし同じ数字のパネルを合体させて数字を大きくしよう
+                </p>
+                <p>目指せ <span class="bold">2048!</span> (サイズ4×4の場合)</p>
+                <hr />
+                <h2>操作方法</h2>
+                <p>※キーボード操作のみ受け付けます。</p>
+                <p class="under">上下左右キー(またはWSADキー)</p>
+                <p>
+                    同じパネルが重なると合体して数値が２倍となり、合体した値がスコアに加算されます。クリア後もパネルを動かせなくなるまで続けることができます。
+                </p>
+                <hr />
+                <h2>クリア条件</h2>
+                <p>サイズ3×3：256のパネルをつくる</p>
+                <p>サイズ4×4：2048のパネルをつくる</p>
+                <p>サイズ5×5：8192のパネルをつくる</p>
+                <p>サイズ6×6：32768のパネルをつくる</p>
+                <hr />
+                <h2>パネルの出現率</h2>
+                <p>サイズ3×3：2 (90%) 4 (10%)</p>
+                <p>サイズ4×4：2 (90%) 4 (10%)</p>
+                <p>サイズ5×5：2 (40%) 4 (30%) 8 (20%) 16 (10%)</p>
+                <p>
+                    サイズ6×6：2 (30%) 4 (20%) 8 (20%) 16 (10%) 32 (10%) 64
+                    (10%)
+                </p>
+            </div>
         </div>
     </body>
 </html>

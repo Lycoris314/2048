@@ -19,8 +19,13 @@ class Panel {
         "lime",
         "salmon",
         "crimson", //num=10
+        "royalblue",
+        "purple",
+        "indigo",
+        "snow",
     ];
 
+    //"pos00 pos01...po33"といった文字列
     static POS = R.join(
         " ",
         R.map(
@@ -54,7 +59,7 @@ class Panel {
             this.#element.text(Math.pow(2, this.#num + 1));
             this.#element.css(
                 "background-color",
-                Panel.COLORS[this.#num > 10 ? 10 : this.#num]
+                Panel.COLORS[this.#num > 14 ? 14 : this.#num]
             );
         }, Panel.MOVE_TIME);
 
@@ -67,11 +72,8 @@ class Panel {
 
     //合体して消滅する前の最後の移動アニメーション
     beforeUnion(dy, dx, length) {
-        //これだと何故かうまくいかない
-        // let y = this.y + length * dy;
-        // let x = this.x + length * dx;
-        // this.#element.removeClass("pos00 pos01 pos02 pos03 pos10 pos11 pos12 pos13 pos20 pos21 pos22 pos23 pos30 pos31 pos32 pos33");
-        // this.#element.addClass("pos" + y + x);
+        //これだと何故かしばしば変な動きになる
+        //this.slide(this.y + length * dy, this.x + length * dx);
 
         let top = Number(this.#element.css("top").slice(0, -2));
         let left = Number(this.#element.css("left").slice(0, -2));
@@ -84,7 +86,7 @@ class Panel {
         this.#element.css("left", left + "px");
 
         setTimeout((_) => {
-            this.removeElement();
+            this.disappear();
         }, Panel.MOVE_TIME);
     }
 
@@ -95,7 +97,7 @@ class Panel {
         this.#element.addClass("pos" + y + x);
     }
 
-    removeElement() {
+    disappear() {
         this.#element.remove();
     }
 
