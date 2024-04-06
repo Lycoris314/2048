@@ -1,0 +1,25 @@
+@mixin mixin($n) {
+    $CELL_NUM: $n;
+    $FIELD_SIZE: 630;
+    $GAP: 10;
+    $CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
+
+    main {
+        grid-template-columns: repeat($CELL_NUM, 1fr);
+        grid-template-rows: repeat($CELL_NUM, 1fr);
+    }
+
+    .panel {
+        width: $CELL_SIZE + px;
+        height: $CELL_SIZE + px;
+    }
+
+    @for $i from 0 to $CELL_NUM {
+        @for $j from 0 to $CELL_NUM {
+            .panel.pos#{$i}#{$j} {
+                top: #{$GAP + ($CELL_SIZE + $GAP) * $i} + px;
+                left: #{$GAP + ($CELL_SIZE + $GAP) * $j} + px;
+            }
+        }
+    }
+}

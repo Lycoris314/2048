@@ -1,3 +1,8 @@
+<?php
+    if(isset($_GET["size"])&&is_numeric($_GET["size"])){
+        $size = $_GET["size"];
+    }
+?>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -5,8 +10,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>2048</title>
         <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="cell_num/cell_num<?=$size ?>.css">
         <script src="jquery.js"></script>
         <script src="ramda.min.js"></script>
+        <script>const SIZE= <?=$size ?></script>
         <script src="common.js"></script>
         <script src="panel.js"></script>
         <script src="2048.js"></script>

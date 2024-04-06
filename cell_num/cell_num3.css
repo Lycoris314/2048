@@ -1,0 +1,54 @@
+main {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.panel {
+  width: 203.3333333333px;
+  height: 203.3333333333px;
+}
+
+.panel.pos00 {
+  top: 10px;
+  left: 10px;
+}
+
+.panel.pos01 {
+  top: 10px;
+  left: 223.3333333333px;
+}
+
+.panel.pos02 {
+  top: 10px;
+  left: 436.6666666667px;
+}
+
+.panel.pos10 {
+  top: 223.3333333333px;
+  left: 10px;
+}
+
+.panel.pos11 {
+  top: 223.3333333333px;
+  left: 223.3333333333px;
+}
+
+.panel.pos12 {
+  top: 223.3333333333px;
+  left: 436.6666666667px;
+}
+
+.panel.pos20 {
+  top: 436.6666666667px;
+  left: 10px;
+}
+
+.panel.pos21 {
+  top: 436.6666666667px;
+  left: 223.3333333333px;
+}
+
+.panel.pos22 {
+  top: 436.6666666667px;
+  left: 436.6666666667px;
+}/*# sourceMappingURL=cell_num3.css.map */

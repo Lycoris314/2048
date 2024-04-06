@@ -1,0 +1,89 @@
+main {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.panel {
+  width: 150px;
+  height: 150px;
+}
+
+.panel.pos00 {
+  top: 10px;
+  left: 10px;
+}
+
+.panel.pos01 {
+  top: 10px;
+  left: 170px;
+}
+
+.panel.pos02 {
+  top: 10px;
+  left: 330px;
+}
+
+.panel.pos03 {
+  top: 10px;
+  left: 490px;
+}
+
+.panel.pos10 {
+  top: 170px;
+  left: 10px;
+}
+
+.panel.pos11 {
+  top: 170px;
+  left: 170px;
+}
+
+.panel.pos12 {
+  top: 170px;
+  left: 330px;
+}
+
+.panel.pos13 {
+  top: 170px;
+  left: 490px;
+}
+
+.panel.pos20 {
+  top: 330px;
+  left: 10px;
+}
+
+.panel.pos21 {
+  top: 330px;
+  left: 170px;
+}
+
+.panel.pos22 {
+  top: 330px;
+  left: 330px;
+}
+
+.panel.pos23 {
+  top: 330px;
+  left: 490px;
+}
+
+.panel.pos30 {
+  top: 490px;
+  left: 10px;
+}
+
+.panel.pos31 {
+  top: 490px;
+  left: 170px;
+}
+
+.panel.pos32 {
+  top: 490px;
+  left: 330px;
+}
+
+.panel.pos33 {
+  top: 490px;
+  left: 490px;
+}/*# sourceMappingURL=cell_num4.css.map */

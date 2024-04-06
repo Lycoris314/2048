@@ -1,0 +1,189 @@
+main {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+
+.panel {
+  width: 96.6666666667px;
+  height: 96.6666666667px;
+}
+
+.panel.pos00 {
+  top: 10px;
+  left: 10px;
+}
+
+.panel.pos01 {
+  top: 10px;
+  left: 116.6666666667px;
+}
+
+.panel.pos02 {
+  top: 10px;
+  left: 223.3333333333px;
+}
+
+.panel.pos03 {
+  top: 10px;
+  left: 330px;
+}
+
+.panel.pos04 {
+  top: 10px;
+  left: 436.6666666667px;
+}
+
+.panel.pos05 {
+  top: 10px;
+  left: 543.3333333333px;
+}
+
+.panel.pos10 {
+  top: 116.6666666667px;
+  left: 10px;
+}
+
+.panel.pos11 {
+  top: 116.6666666667px;
+  left: 116.6666666667px;
+}
+
+.panel.pos12 {
+  top: 116.6666666667px;
+  left: 223.3333333333px;
+}
+
+.panel.pos13 {
+  top: 116.6666666667px;
+  left: 330px;
+}
+
+.panel.pos14 {
+  top: 116.6666666667px;
+  left: 436.6666666667px;
+}
+
+.panel.pos15 {
+  top: 116.6666666667px;
+  left: 543.3333333333px;
+}
+
+.panel.pos20 {
+  top: 223.3333333333px;
+  left: 10px;
+}
+
+.panel.pos21 {
+  top: 223.3333333333px;
+  left: 116.6666666667px;
+}
+
+.panel.pos22 {
+  top: 223.3333333333px;
+  left: 223.3333333333px;
+}
+
+.panel.pos23 {
+  top: 223.3333333333px;
+  left: 330px;
+}
+
+.panel.pos24 {
+  top: 223.3333333333px;
+  left: 436.6666666667px;
+}
+
+.panel.pos25 {
+  top: 223.3333333333px;
+  left: 543.3333333333px;
+}
+
+.panel.pos30 {
+  top: 330px;
+  left: 10px;
+}
+
+.panel.pos31 {
+  top: 330px;
+  left: 116.6666666667px;
+}
+
+.panel.pos32 {
+  top: 330px;
+  left: 223.3333333333px;
+}
+
+.panel.pos33 {
+  top: 330px;
+  left: 330px;
+}
+
+.panel.pos34 {
+  top: 330px;
+  left: 436.6666666667px;
+}
+
+.panel.pos35 {
+  top: 330px;
+  left: 543.3333333333px;
+}
+
+.panel.pos40 {
+  top: 436.6666666667px;
+  left: 10px;
+}
+
+.panel.pos41 {
+  top: 436.6666666667px;
+  left: 116.6666666667px;
+}
+
+.panel.pos42 {
+  top: 436.6666666667px;
+  left: 223.3333333333px;
+}
+
+.panel.pos43 {
+  top: 436.6666666667px;
+  left: 330px;
+}
+
+.panel.pos44 {
+  top: 436.6666666667px;
+  left: 436.6666666667px;
+}
+
+.panel.pos45 {
+  top: 436.6666666667px;
+  left: 543.3333333333px;
+}
+
+.panel.pos50 {
+  top: 543.3333333333px;
+  left: 10px;
+}
+
+.panel.pos51 {
+  top: 543.3333333333px;
+  left: 116.6666666667px;
+}
+
+.panel.pos52 {
+  top: 543.3333333333px;
+  left: 223.3333333333px;
+}
+
+.panel.pos53 {
+  top: 543.3333333333px;
+  left: 330px;
+}
+
+.panel.pos54 {
+  top: 543.3333333333px;
+  left: 436.6666666667px;
+}
+
+.panel.pos55 {
+  top: 543.3333333333px;
+  left: 543.3333333333px;
+}/*# sourceMappingURL=cell_num6.css.map */

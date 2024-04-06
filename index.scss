@@ -60,15 +60,15 @@ div.scores {
     }
 }
 
-$CELL_NUM: 4;
+$CELL_NUM: 5;
 $FIELD_SIZE: 630;
 $GAP: 10;
 $CELL_SIZE: calc(($FIELD_SIZE - ($CELL_NUM - 1) * $GAP) / $CELL_NUM);
 
 main {
     display: grid;
-    grid-template-columns: repeat($CELL_NUM, 1fr);
-    grid-template-rows: repeat($CELL_NUM, 1fr);
+    // grid-template-columns: repeat($CELL_NUM, 1fr);
+    // grid-template-rows: repeat($CELL_NUM, 1fr);
     gap: $GAP + px;
     padding: $GAP + px;
     width: $FIELD_SIZE + px;
@@ -83,8 +83,8 @@ main {
 }
 
 .panel {
-    width: $CELL_SIZE + px;
-    height: $CELL_SIZE + px;
+    // width: $CELL_SIZE + px;
+    // height: $CELL_SIZE + px;
     position: absolute;
     border-radius: 5px;
     display: grid;

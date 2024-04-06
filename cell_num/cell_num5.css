@@ -1,0 +1,134 @@
+main {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.panel {
+  width: 118px;
+  height: 118px;
+}
+
+.panel.pos00 {
+  top: 10px;
+  left: 10px;
+}
+
+.panel.pos01 {
+  top: 10px;
+  left: 138px;
+}
+
+.panel.pos02 {
+  top: 10px;
+  left: 266px;
+}
+
+.panel.pos03 {
+  top: 10px;
+  left: 394px;
+}
+
+.panel.pos04 {
+  top: 10px;
+  left: 522px;
+}
+
+.panel.pos10 {
+  top: 138px;
+  left: 10px;
+}
+
+.panel.pos11 {
+  top: 138px;
+  left: 138px;
+}
+
+.panel.pos12 {
+  top: 138px;
+  left: 266px;
+}
+
+.panel.pos13 {
+  top: 138px;
+  left: 394px;
+}
+
+.panel.pos14 {
+  top: 138px;
+  left: 522px;
+}
+
+.panel.pos20 {
+  top: 266px;
+  left: 10px;
+}
+
+.panel.pos21 {
+  top: 266px;
+  left: 138px;
+}
+
+.panel.pos22 {
+  top: 266px;
+  left: 266px;
+}
+
+.panel.pos23 {
+  top: 266px;
+  left: 394px;
+}
+
+.panel.pos24 {
+  top: 266px;
+  left: 522px;
+}
+
+.panel.pos30 {
+  top: 394px;
+  left: 10px;
+}
+
+.panel.pos31 {
+  top: 394px;
+  left: 138px;
+}
+
+.panel.pos32 {
+  top: 394px;
+  left: 266px;
+}
+
+.panel.pos33 {
+  top: 394px;
+  left: 394px;
+}
+
+.panel.pos34 {
+  top: 394px;
+  left: 522px;
+}
+
+.panel.pos40 {
+  top: 522px;
+  left: 10px;
+}
+
+.panel.pos41 {
+  top: 522px;
+  left: 138px;
+}
+
+.panel.pos42 {
+  top: 522px;
+  left: 266px;
+}
+
+.panel.pos43 {
+  top: 522px;
+  left: 394px;
+}
+
+.panel.pos44 {
+  top: 522px;
+  left: 522px;
+}/*# sourceMappingURL=cell_num5.css.map */
