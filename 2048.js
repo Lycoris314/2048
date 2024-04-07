@@ -60,6 +60,12 @@ class GameField {
 
         function eachUpdate(dy, dx, y, x, panel, field) {
             //移動方向に向かってフィールド境界までの距離
+            //これは逆にわかりにくいか
+            // const table = {
+            //     dy: { 1: Common.CELL_NUM - y - 1, 0: 0, "-1": y },
+            //     dx: { 1: Common.CELL_NUM - x - 1, 0: 0, "-1": x },
+            // };
+            // const dist = table.dy[dy] + table.dx[dx];
             const dist =
                 dy === 1
                     ? Common.CELL_NUM - y - 1
@@ -81,10 +87,11 @@ class GameField {
 
             const nRPtoNum = nullRemovedPath.map((e) => e.num);
 
-            //移動先で当パネルが合体して消滅する条件と、path上で合体するパネルの組の数(自身の合体も含む)を返す。
+            //移動先で当パネルが合体して消滅するかどうかと、path上で合体するパネルの組の数(自身の合体も含む)を返す。
             const disapCondAndCount = (arr, n) => {
                 let count = 0;
                 const disapCond = (arr, n) => {
+                    //基底部
                     if (arr.length === 0) return false;
 
                     if (arr.length === 1) {
@@ -95,6 +102,7 @@ class GameField {
                             return false;
                         }
                     }
+                    //再帰部
                     if (arr.at(-1) === arr.at(-2)) {
                         count++;
                         return disapCond(arr.slice(0, -2), n);
@@ -130,22 +138,14 @@ class GameField {
     }
 
     isGameOver() {
-        if (this.field.flat().some((elm) => elm === null)) return false;
-
-        return noMove(this.field);
+        return (
+            this.field.flat().every((elm) => elm !== null) && noMove(this.field)
+        );
     }
 
     isGameClear() {
-        const c =
-            Common.CELL_NUM === 3
-                ? 7
-                : Common.CELL_NUM === 4
-                ? 10
-                : Common.CELL_NUM === 5
-                ? 12
-                : Common.CELL_NUM === 6
-                ? 14
-                : null;
+        const table = { 3: 7, 4: 10, 5: 12, 6: 14 };
+        const c = table[Common.CELL_NUM];
 
         return this.field
             .flat()
