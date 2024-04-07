@@ -72,14 +72,9 @@ class GameField {
                     : null;
 
             //移動方向にあるパネルたち(空=nullを含む)
-            const path = (() => {
-                let panels = [];
-
-                for (let i = 1; i <= dist; i++) {
-                    panels.push(field[y + i * dy][x + i * dx]);
-                }
-                return panels;
-            })();
+            const path = R.range(1, dist + 1).map((i) => {
+                return field[y + i * dy][x + i * dx];
+            });
 
             //pathからnullを抜いたもの
             const nullRemovedPath = path.filter((elm) => elm !== null);
@@ -200,17 +195,11 @@ const randomNum = () => {
     }
 };
 
-const emptyCells = (matrix) => {
-    let emptyCells = [];
-    matrix.forEach((arr, y) => {
-        arr.forEach((cell, x) => {
-            if (cell === null) {
-                emptyCells.push([y, x]);
-            }
-        });
-    });
-    return emptyCells;
-};
+const emptyCells = (matrix) =>
+    matrix
+        .map((arr, y) => arr.map((cell, x) => (cell === null ? [y, x] : null)))
+        .flat(1)
+        .filter((elm) => elm !== null);
 
 const randomSelect = (arr) => {
     const index = Math.floor(Math.random() * arr.length);
@@ -219,15 +208,13 @@ const randomSelect = (arr) => {
 
 //隣接ペアがすべて異なるかどうか。
 const noMove = (matrix) => {
-    function f(mat) {
-        for (let arr of mat) {
+    const f = (mat) =>
+        mat.every((arr) => {
             const row = arr.map((elm) => elm.num);
-            if (
-                R.range(0, matrix.length - 1).some((n) => row[n] === row[n + 1])
-            )
-                return false;
-        }
-        return true;
-    }
+            return R.range(0, arr.length - 1).every(
+                (n) => row[n] !== row[n + 1]
+            );
+        });
+
     return f(matrix) && f(R.transpose(matrix));
 };
