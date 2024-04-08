@@ -60,12 +60,6 @@ class GameField {
 
         function eachUpdate(dy, dx, y, x, panel, field) {
             //移動方向に向かってフィールド境界までの距離
-            //これは逆にわかりにくいか
-            // const table = {
-            //     dy: { 1: Common.CELL_NUM - y - 1, 0: 0, "-1": y },
-            //     dx: { 1: Common.CELL_NUM - x - 1, 0: 0, "-1": x },
-            // };
-            // const dist = table.dy[dy] + table.dx[dx];
             const dist =
                 dy === 1
                     ? Common.CELL_NUM - y - 1

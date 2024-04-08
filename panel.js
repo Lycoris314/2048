@@ -25,23 +25,17 @@ class Panel {
         "snow",
     ];
 
-    //"pos00 pos01...po33"といった文字列
-    static POS = R.join(
-        " ",
-        R.map(
-            R.o(R.concat("pos"), R.join("")),
-            R.xprod(R.range(0, Common.CELL_NUM), R.range(0, Common.CELL_NUM))
-        )
-    );
-
-    constructor(x, y, num, jqRoot) {
-        this.#x = x;
+    constructor(y, x, num, jqRoot) {
+        //constructor(vec,num,jqRoot)
         this.#y = y;
+        this.#x = x;
+        //this.#vec = vec;
         this.#num = num;
 
         this.#element = $("<div>")
             .addClass("panel show")
-            .addClass("pos" + x + y)
+            .addClass("pos" + y + x)
+            //.addClass("pos"+ vec.y + vec.x)
             .text(Math.pow(2, num + 1))
             .css("background-color", Panel.COLORS[num]);
 
@@ -72,18 +66,7 @@ class Panel {
 
     //合体して消滅する前の最後の移動アニメーション
     beforeUnion(dy, dx, length) {
-        //これだと何故かしばしば変な動きになる
-        //this.slide(this.y + length * dy, this.x + length * dx);
-
-        let top = Number(this.#element.css("top").slice(0, -2));
-        let left = Number(this.#element.css("left").slice(0, -2));
-
-        const d = Common.CELL_SIZE + Common.GAP;
-        top += d * length * dy;
-        left += d * length * dx;
-
-        this.#element.css("top", top + "px");
-        this.#element.css("left", left + "px");
+        this.slide(this.y + length * dy, this.x + length * dx);
 
         setTimeout((_) => {
             this.disappear();
@@ -91,10 +74,11 @@ class Panel {
     }
 
     slide(y, x) {
-        this.#element.removeClass(Panel.POS);
-        this.#x = x;
+        this.#element
+            .removeClass("pos" + this.#y + this.#x)
+            .addClass("pos" + y + x);
         this.#y = y;
-        this.#element.addClass("pos" + y + x);
+        this.#x = x;
     }
 
     disappear() {
