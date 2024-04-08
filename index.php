@@ -20,6 +20,7 @@
         <script> const SIZE= <?=$size ?> </script>
         <!-- common.jsに$sizeを格納 -->
         <script src="common.js"></script>
+        <script src="yx.js"></script>
         <script src="panel.js"></script>
         <script src="2048.js"></script>
         <script src="main.js"></script>

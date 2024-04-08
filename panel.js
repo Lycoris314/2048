@@ -1,7 +1,6 @@
 class Panel {
     #element;
-    #x;
-    #y;
+    #vec;
     #num;
 
     static MOVE_TIME = 300;
@@ -25,17 +24,13 @@ class Panel {
         "snow",
     ];
 
-    constructor(y, x, num, jqRoot) {
-        //constructor(vec,num,jqRoot)
-        this.#y = y;
-        this.#x = x;
-        //this.#vec = vec;
+    constructor(vec, num, jqRoot) {
+        this.#vec = vec;
         this.#num = num;
 
         this.#element = $("<div>")
             .addClass("panel show")
-            .addClass("pos" + y + x)
-            //.addClass("pos"+ vec.y + vec.x)
+            .addClass("pos" + vec.y + vec.x)
             .text(Math.pow(2, num + 1))
             .css("background-color", Panel.COLORS[num]);
 
@@ -66,31 +61,26 @@ class Panel {
 
     //合体して消滅する前の最後の移動アニメーション
     beforeUnion(dy, dx, length) {
-        this.slide(this.y + length * dy, this.x + length * dx);
+        this.slide(yx(this.#vec.y + length * dy, this.#vec.x + length * dx));
 
         setTimeout((_) => {
             this.disappear();
         }, Panel.MOVE_TIME);
     }
 
-    slide(y, x) {
+    slide(vec) {
         this.#element
-            .removeClass("pos" + this.#y + this.#x)
-            .addClass("pos" + y + x);
-        this.#y = y;
-        this.#x = x;
+            .removeClass("pos" + this.#vec.y + this.#vec.x)
+            .addClass("pos" + vec.y + vec.x);
+        this.#vec = vec;
     }
 
     disappear() {
         this.#element.remove();
     }
 
-    get x() {
-        return this.#x;
-    }
-
-    get y() {
-        return this.#y;
+    get vec() {
+        return this.#vec;
     }
 
     get num() {

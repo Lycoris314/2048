@@ -27,7 +27,7 @@ class GameField {
         this.field.forEach((arr, y) => {
             arr.forEach((panel, x) => {
                 if (panel !== null) {
-                    eachUpdate(dy, dx, y, x, panel, this.field);
+                    eachUpdate(dy, dx, yx(y, x), panel, this.field);
                 }
             });
         });
@@ -47,7 +47,7 @@ class GameField {
         outcome.forEach((arr, y) => {
             arr.forEach((elm, x) => {
                 if (elm !== null) {
-                    elm.slide(y, x);
+                    elm.slide(yx(y, x));
                 }
             });
         });
@@ -58,22 +58,22 @@ class GameField {
         const score = R.sum(grow.map((elm) => Math.pow(2, elm.num + 1)));
         return { score: score, inAnimation: true };
 
-        function eachUpdate(dy, dx, y, x, panel, field) {
+        function eachUpdate(dy, dx, vec, panel, field) {
             //移動方向に向かってフィールド境界までの距離
             const dist =
                 dy === 1
-                    ? Common.CELL_NUM - y - 1
+                    ? Common.CELL_NUM - vec.y - 1
                     : dy === -1
-                    ? y
+                    ? vec.y
                     : dx === 1
-                    ? Common.CELL_NUM - x - 1
+                    ? Common.CELL_NUM - vec.x - 1
                     : dx === -1
-                    ? x
+                    ? vec.x
                     : null;
 
             //移動方向にあるパネルたち(空=nullを含む)
             const path = R.range(1, dist + 1).map((i) => {
-                return field[y + i * dy][x + i * dx];
+                return field[vec.y + i * dy][vec.x + i * dx];
             });
 
             //pathからnullを抜いたもの
@@ -118,7 +118,7 @@ class GameField {
                 grow.push(nullRemovedPath[0]);
             } else {
                 //当パネルは合体しない場合。
-                outcome[y + r * dy][x + r * dx] = field[y][x];
+                outcome[vec.y + r * dy][vec.x + r * dx] = field[vec.y][vec.x];
             }
         }
     }
@@ -156,14 +156,15 @@ class GameField {
         R.pipe(emptyCells, randomSelect, this.setPanelTo)(this.#field);
     }
 
-    setPanelTo = (yx) => {
-        const panel = new Panel(...yx, randomNum(), this.#jqRoot);
-        this.setField(panel, ...yx);
+    setPanelTo = (vec) => {
+        const panel = new Panel(vec, randomNum(), this.#jqRoot);
+        this.#field[vec.y][vec.x] = panel;
+        //this.setField(panel, ...yx);
     };
 
-    setField(panel, y, x) {
-        this.#field[y][x] = panel;
-    }
+    // setField(panel, y, x) {
+    //     this.#field[y][x] = panel;
+    // }
 }
 
 const randomNum = () => {
@@ -191,7 +192,9 @@ const randomNum = () => {
 
 const emptyCells = (matrix) =>
     matrix
-        .map((arr, y) => arr.map((cell, x) => (cell === null ? [y, x] : null)))
+        .map((arr, y) =>
+            arr.map((cell, x) => (cell === null ? yx(y, x) : null))
+        )
         .flat(1)
         .filter((elm) => elm !== null);
 
