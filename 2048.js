@@ -13,7 +13,7 @@ class GameField {
         this.putPanel();
     }
 
-    update(dy, dx) {
+    update(dir) {
         //移動の結果をこれに入れていく
         let outcome = new Array(Common.CELL_NUM)
             .fill(null)
@@ -27,7 +27,7 @@ class GameField {
         this.field.forEach((arr, y) => {
             arr.forEach((panel, x) => {
                 if (panel !== null) {
-                    eachUpdate(dy, dx, yx(y, x), panel, this.field);
+                    eachUpdate(dir, yx(y, x), panel, this.field);
                 }
             });
         });
@@ -38,7 +38,7 @@ class GameField {
 
         //衝突する側のアニメーション(衝突後消える)
         del.forEach((elm) => {
-            elm.panel.beforeUnion(dy, dx, elm.moveLength);
+            elm.panel.beforeUnion(dir, elm.moveLength);
         });
         //衝突される側のアニメーション
         grow.forEach((elm) => elm.union());
@@ -58,22 +58,22 @@ class GameField {
         const score = R.sum(grow.map((elm) => Math.pow(2, elm.num + 1)));
         return { score: score, inAnimation: true };
 
-        function eachUpdate(dy, dx, vec, panel, field) {
+        function eachUpdate(dir, vec, panel, field) {
             //移動方向に向かってフィールド境界までの距離
             const dist =
-                dy === 1
+                dir.y === 1
                     ? Common.CELL_NUM - vec.y - 1
-                    : dy === -1
+                    : dir.y === -1
                     ? vec.y
-                    : dx === 1
+                    : dir.x === 1
                     ? Common.CELL_NUM - vec.x - 1
-                    : dx === -1
+                    : dir.x === -1
                     ? vec.x
                     : null;
 
             //移動方向にあるパネルたち(空=nullを含む)
             const path = R.range(1, dist + 1).map((i) => {
-                return field[vec.y + i * dy][vec.x + i * dx];
+                return field[vec.y + i * dir.y][vec.x + i * dir.x];
             });
 
             //pathからnullを抜いたもの
@@ -118,7 +118,8 @@ class GameField {
                 grow.push(nullRemovedPath[0]);
             } else {
                 //当パネルは合体しない場合。
-                outcome[vec.y + r * dy][vec.x + r * dx] = field[vec.y][vec.x];
+                outcome[vec.y + r * dir.y][vec.x + r * dir.x] =
+                    field[vec.y][vec.x];
             }
         }
     }
@@ -138,7 +139,7 @@ class GameField {
     }
 
     isGameClear() {
-        const table = { 3: 7, 4: 10, 5: 12, 6: 14 };
+        const table = { 3: 7, 4: 10, 5: 12, 6: 13 };
         const c = table[Common.CELL_NUM];
 
         return this.field
@@ -159,12 +160,7 @@ class GameField {
     setPanelTo = (vec) => {
         const panel = new Panel(vec, randomNum(), this.#jqRoot);
         this.#field[vec.y][vec.x] = panel;
-        //this.setField(panel, ...yx);
     };
-
-    // setField(panel, y, x) {
-    //     this.#field[y][x] = panel;
-    // }
 }
 
 const randomNum = () => {

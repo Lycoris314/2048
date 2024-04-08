@@ -24,27 +24,28 @@ $(() => {
     $("html").on("keydown", (e) => {
         if (p.stopKeyEvent || p.ruleShowing || p.inAnimation) return;
 
-        let r;
-        switch (e.key) {
-            case "ArrowUp":
-            case "w":
-                r = gameField.update(-1, 0);
-                break;
-            case "ArrowDown":
-            case "s":
-                r = gameField.update(1, 0);
-                break;
-            case "ArrowLeft":
-            case "a":
-                r = gameField.update(0, -1);
-                break;
-            case "ArrowRight":
-            case "d":
-                r = gameField.update(0, 1);
-                break;
-            default:
-                return;
+        function dir(key) {
+            switch (key) {
+                case "ArrowUp":
+                case "w":
+                    return yx(-1, 0);
+                case "ArrowDown":
+                case "s":
+                    return yx(1, 0);
+                case "ArrowLeft":
+                case "a":
+                    return yx(0, -1);
+                case "ArrowRight":
+                case "d":
+                    return yx(0, 1);
+                default:
+                    return null;
+            }
         }
+        const dir_ = dir(e.key);
+        if (dir_ === null) return;
+
+        const r = gameField.update(dir_);
 
         p.score += r.score;
         $(".score.now >.num").text(p.score);

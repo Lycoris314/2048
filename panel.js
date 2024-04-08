@@ -30,7 +30,7 @@ class Panel {
 
         this.#element = $("<div>")
             .addClass("panel show")
-            .addClass("pos" + vec.y + vec.x)
+            .addClass(vec.toPos())
             .text(Math.pow(2, num + 1))
             .css("background-color", Panel.COLORS[num]);
 
@@ -60,8 +60,8 @@ class Panel {
     }
 
     //合体して消滅する前の最後の移動アニメーション
-    beforeUnion(dy, dx, length) {
-        this.slide(yx(this.#vec.y + length * dy, this.#vec.x + length * dx));
+    beforeUnion(dir, length) {
+        this.slide(YX.add(this.#vec, YX.scalar(length, dir)));
 
         setTimeout((_) => {
             this.disappear();
@@ -69,9 +69,7 @@ class Panel {
     }
 
     slide(vec) {
-        this.#element
-            .removeClass("pos" + this.#vec.y + this.#vec.x)
-            .addClass("pos" + vec.y + vec.x);
+        this.#element.removeClass(this.#vec.toPos()).addClass(vec.toPos());
         this.#vec = vec;
     }
 
