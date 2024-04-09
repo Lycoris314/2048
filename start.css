@@ -1,134 +1,54 @@
-@charset "utf-8";
-@import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
-
-body {
-    background-color: azure;
-    font-family: "Stick", sans-serif;
-    margin: 0;
+div.start.container {
+  z-index: 60;
+  width: 650px;
+  height: max(100vh, 950px);
 }
-
-button {
-    font-family: "Stick", sans-serif;
+div.start.container.hidden {
+  z-index: -10;
 }
-
-.container {
-    position: relative;
-    width: 650px;
-    height: max(100vh, 950px);
-    margin: 0 auto;
-    padding: 0 40px;
-    border-left: 1px solid silver;
-    border-right: 1px solid silver;
-    background-color: antiquewhite;
-    box-shadow: 0 0 10px 10px silver;
+div.start h1 {
+  margin: 0;
+  padding: 35px 0;
+  font-size: 2.2rem;
 }
-
-h1 {
-    margin: 0;
-    padding: 35px 0;
-    font-size: 2.2rem;
+div.start h2 {
+  margin: 0 65px;
 }
-
-h2 {
-    margin: 0 65px;
+div.start .bold {
+  font-weight: bold;
 }
-
-.bold {
-    font-weight: bold;
+div.start p {
+  margin: 15px 65px;
+  font-size: 1.2rem;
 }
-
-p {
-    margin: 15px 65px;
-    font-size: 1.2rem;
+div.start button.start {
+  cursor: pointer;
+  font-family: "Stick", sans-serif;
+  display: block;
+  width: 80%;
+  height: 40px;
+  margin: 40px auto;
+  background-color: white;
+  border: 2px solid darkgreen;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: 0.3s;
 }
-
-button.start {
-    cursor: pointer;
-    font-family: "Stick", sans-serif;
-
-    display: block;
-    width: 80%;
-    height: 40px;
-    margin: 40px auto;
-    background-color: white;
-    border: 2px solid darkgreen;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.3s;
+div.start button.start:hover {
+  background-color: rgb(240, 251, 230);
 }
-
-button.start:hover {
-    background-color: rgb(240, 251, 230);
+div.start table {
+  margin: 15px 65px;
+  font-size: 1.2rem;
+  border-collapse: collapse;
 }
-
-table {
-    margin: 15px 65px;
-    font-size: 1.2rem;
-    border-collapse: collapse;
+div.start tr:nth-child(even) {
+  background-color: azure;
 }
-
-tr:nth-child(even) {
-    background-color: azure;
+div.start tr:nth-child(odd) {
+  background-color: rgb(209, 221, 244);
 }
-tr:nth-child(odd) {
-    background-color: rgb(209, 221, 244);
-}
-
-td {
-    padding: 10px;
-    width: 250px;
-}
-
-button.rule {
-    position: absolute;
-    bottom: 0;
-    right: 50px;
-    background-color: darkgreen;
-    color: white;
-    width: 100px;
-    height: 50px;
-    border-radius: 20px 20px 0 0;
-    border: none;
-    z-index: 50;
-    font-size: 1.2rem;
-    transition: 0.3s;
-}
-
-button.rule:hover {
-    background-color: green;
-}
-
-div.rulePage {
-    background-color: whitesmoke;
-    width: 80%;
-    height: calc(100vh - 100px);
-    margin: 50px auto 0;
-    padding: 20px 10px;
-    font-size: 1.1rem;
-    overflow-y: scroll;
-}
-div.rulePage > p {
-    font-family: sans-serif;
-}
-
-div.ruleBack {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 10;
-    transition: 0.5s;
-}
-div.ruleBack.show {
-    top: 0;
-}
-
-span.bold {
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-p.under {
-    text-decoration: underline;
-}
+div.start td {
+  padding: 10px;
+  width: 250px;
+}/*# sourceMappingURL=start.css.map */

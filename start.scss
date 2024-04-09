@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+div.start {
+    &.container {
+        z-index: 60;
+        width: 650px;
+        height: max(100vh, 950px);
+        &.hidden {
+            z-index: -10;
+        }
+    }
+
+    h1 {
+        margin: 0;
+        padding: 35px 0;
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        margin: 0 65px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    p {
+        margin: 15px 65px;
+        font-size: 1.2rem;
+    }
+
+    button.start {
+        cursor: pointer;
+        font-family: "Stick", sans-serif;
+
+        display: block;
+        width: 80%;
+        height: 40px;
+        margin: 40px auto;
+        background-color: white;
+        border: 2px solid darkgreen;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button.start:hover {
+        background-color: rgb(240, 251, 230);
+    }
+
+    table {
+        margin: 15px 65px;
+        font-size: 1.2rem;
+        border-collapse: collapse;
+    }
+
+    tr:nth-child(even) {
+        background-color: azure;
+    }
+    tr:nth-child(odd) {
+        background-color: rgb(209, 221, 244);
+    }
+
+    td {
+        padding: 10px;
+        width: 250px;
+    }
+}

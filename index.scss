@@ -18,10 +18,10 @@ button {
 }
 
 .container {
-    position: relative;
+    position: absolute;
     width: max-content;
     height: max(100vh, 950px);
-    margin: 0 auto;
+    left: calc(50% - 365px);
     padding: 0 40px;
     border-left: 1px solid silver;
     border-right: 1px solid silver;
@@ -187,7 +187,7 @@ button.rule {
     height: 50px;
     border-radius: 20px 20px 0 0;
     border: none;
-    z-index: 50;
+    z-index: 100;
     font-size: 1.2rem;
     transition: 0.3s;
 }
@@ -205,7 +205,7 @@ button.back {
     height: 50px;
     border-radius: 20px 20px 0 0;
     border: none;
-    z-index: 50;
+    z-index: 40;
     font-size: 0.9rem;
     transition: 0.3s;
 }
@@ -233,7 +233,7 @@ div.ruleBack {
         top: 0;
     }
     background-color: rgb(0, 0, 0, 0.7);
-    z-index: 10;
+    z-index: 80;
     transition: 0.5s;
 }
 

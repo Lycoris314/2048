@@ -5,33 +5,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>2048</title>
         <link rel="stylesheet" href="start.css" />
+        <link rel="stylesheet" href="index.css" />
+        <link class="cell_num" rel="stylesheet" href="cell_num/cell_num4.css" />
         <script src="jquery.js"></script>
         <script src="ramda.min.js"></script>
-        <script src="start.js"></script>
+        <script src="common.js"></script>
+        <script src="yx.js"></script>
+        <script src="panel.js"></script>
+        <script src="2048.js"></script>
+        <script src="main.js"></script>
     </head>
+
     <body>
         <div class="container">
+            <header>
+                <h1>2048</h1>
+                <div class="scores">
+                    <div class="score high">
+                        <p>ハイスコア</p>
+                        <p class="num">0</p>
+                    </div>
+                    <div class="score now">
+                        <p>スコア</p>
+                        <p class="num">0</p>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                <div class="gameOver">
+                    <p>ゲームオーバー!</p>
+                    <p>スコア：<span class="score"></span></p>
+                    <button class="restart">リスタート</button>
+                </div>
+                <div class="gameClear">
+                    <p>ゲームクリアー！</p>
+                    <p>スコア：<span class="score"></span></p>
+                    <div class="btns">
+                        <button class="continue">つづける</button>
+                        <button class="restart">リスタート</button>
+                    </div>
+                </div>
+            </main>
+            <button class="restart">リスタート</button>
+
+            <button class="back">スタート<br />画面に戻る</button>
+            <button class="rule">ルール</button>
+        </div>
+
+        <div class="container start">
             <h1>2048</h1>
             <h2>サイズを選択</h2>
-            <form action="index.php" method="get">
-                <p>
-                    <label for="3">3×3</label
-                    ><input type="radio" name="size" id="3" value="3" />
-                </p>
-                <p>
-                    <label for="4" class="bold">4×4</label
-                    ><input type="radio" name="size" id="4" value="4" checked />
-                </p>
-                <p>
-                    <label for="5">5×5</label
-                    ><input type="radio" name="size" id="5" value="5" />
-                </p>
-                <p>
-                    <label for="6">6×6</label
-                    ><input type="radio" name="size" id="6" value="6" />
-                </p>
-                <button class="start">ゲームスタート</button>
-            </form>
+
+            <p>
+                <label for="3">3×3</label
+                ><input type="radio" name="size" id="3" value="3" />
+            </p>
+            <p>
+                <label for="4" class="bold">4×4</label
+                ><input type="radio" name="size" id="4" value="4" checked />
+            </p>
+            <p>
+                <label for="5">5×5</label
+                ><input type="radio" name="size" id="5" value="5" />
+            </p>
+            <p>
+                <label for="6">6×6</label
+                ><input type="radio" name="size" id="6" value="6" />
+            </p>
+            <button class="start">ゲームスタート</button>
+
             <h2>ハイスコア</h2>
             <table>
                 <tbody>
@@ -60,9 +103,7 @@
         <div class="ruleBack">
             <div class="rulePage">
                 <h2>ルール</h2>
-                <p>
-                    パネルを動かし同じ数字のパネルを合体させて数字を大きくしよう
-                </p>
+                <p>同じ数字のパネルを合体させて数字を大きくしよう</p>
                 <p>目指せ <span class="bold">2048!</span> (サイズ4×4の場合)</p>
                 <hr />
                 <h2>操作方法</h2>
