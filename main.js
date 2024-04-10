@@ -179,7 +179,7 @@ $(() => {
         Common.setCellSize();
 
         //フィールドのマス目を描画
-        for (let i = 0; i < Common.CELL_NUM * Common.CELL_NUM; i++) {
+        for (let i = 0; i < Common.CELL_NUM ** 2; i++) {
             $("main").prepend($("<div class='cell'>"));
         }
         //ハイスコア表示

@@ -118,8 +118,8 @@ class GameField {
                 grow.push(nullRemovedPath[0]);
             } else {
                 //当パネルは合体しない場合。
-                outcome[vec.y + r * dir.y][vec.x + r * dir.x] =
-                    field[vec.y][vec.x];
+                const v = YX.add(vec, YX.scalar(r, dir));
+                outcome[v.y][v.x] = field[vec.y][vec.x];
             }
         }
     }
