@@ -1,4 +1,7 @@
-class GameField {
+import { Panel } from "./panel.js";
+import { randomNum, emptyCells, randomSelect } from "./module/forPutPanel.js";
+
+export class GameField {
     #field;
     #jqRoot;
 
@@ -73,7 +76,8 @@ class GameField {
 
             //移動方向にあるパネルたち(空=nullを含む)
             const path = R.range(1, dist + 1).map((i) => {
-                return field[vec.y + i * dir.y][vec.x + i * dir.x];
+                const v = YX.add(vec, YX.scalar(i, dir));
+                return field[v.y][v.x];
             });
 
             //pathからnullを抜いたもの
@@ -154,50 +158,14 @@ class GameField {
 
     //空きマスにパネルをランダム追加する。
     putPanel() {
-        R.pipe(emptyCells, randomSelect, this.setPanelTo)(this.#field);
+        R.pipe(emptyCells, randomSelect, this.#setPanelTo)(this.#field);
     }
 
-    setPanelTo = (vec) => {
-        const panel = new Panel(vec, randomNum(), this.#jqRoot);
+    #setPanelTo = (vec) => {
+        const panel = new Panel(vec, randomNum(Common.CELL_NUM), this.#jqRoot);
         this.#field[vec.y][vec.x] = panel;
     };
 }
-
-const randomNum = () => {
-    const r = Math.random();
-    switch (Common.CELL_NUM) {
-        case 3:
-        case 4:
-            return r < 0.9 ? 0 : 1;
-        case 5:
-            return r < 0.4 ? 0 : r < 0.7 ? 1 : r < 0.9 ? 2 : 3;
-        case 6:
-            return r < 0.3
-                ? 0
-                : r < 0.5
-                ? 1
-                : r < 0.7
-                ? 2
-                : r < 0.8
-                ? 3
-                : r < 0.9
-                ? 4
-                : 5;
-    }
-};
-
-const emptyCells = (matrix) =>
-    matrix
-        .map((arr, y) =>
-            arr.map((cell, x) => (cell === null ? yx(y, x) : null))
-        )
-        .flat(1)
-        .filter((elm) => elm !== null);
-
-const randomSelect = (arr) => {
-    const index = Math.floor(Math.random() * arr.length);
-    return arr[index];
-};
 
 //隣接ペアがすべて異なるかどうか。
 const noMove = (matrix) => {

@@ -1,10 +1,9 @@
-class Panel {
+import { MOVE_TIME, EXPAND_TIME } from "./module/time.js";
+
+export class Panel {
     #element;
     #vec;
     #num;
-
-    static MOVE_TIME = 300;
-    static EXPAND_TIME = 200;
 
     static COLORS = [
         "silver", //num=0
@@ -36,7 +35,7 @@ class Panel {
 
         setTimeout(() => {
             this.#element.removeClass("show");
-        }, Panel.MOVE_TIME);
+        }, MOVE_TIME);
 
         jqRoot.append(this.#element);
     }
@@ -50,13 +49,13 @@ class Panel {
                 "background-color",
                 Panel.COLORS[this.#num > 14 ? 14 : this.#num]
             );
-        }, Panel.MOVE_TIME);
+        }, MOVE_TIME);
 
         this.#element.addClass("unionAnimation");
 
         setTimeout(() => {
             this.#element.removeClass("unionAnimation");
-        }, Panel.MOVE_TIME + Panel.EXPAND_TIME);
+        }, MOVE_TIME + EXPAND_TIME);
     }
 
     //合体して消滅する前の最後の移動アニメーション
@@ -65,7 +64,7 @@ class Panel {
 
         setTimeout((_) => {
             this.disappear();
-        }, Panel.MOVE_TIME);
+        }, MOVE_TIME);
     }
 
     slide(vec) {

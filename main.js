@@ -1,6 +1,12 @@
-$(() => {
-    const MOVE_TIME = 300; //パネルの移動時間(ms)
+import { GameField } from "./2048.js";
+import {
+    highScore,
+    updateHighscore,
+    updateHighscoreTable,
+} from "./module/highScore.js";
+import { MOVE_TIME } from "./module/time.js";
 
+$(() => {
     //パラメーター
     const p = {
         preGame: true, //スタート画面ならtrue
@@ -13,22 +19,7 @@ $(() => {
 
     let gameField;
 
-    function highScore(num) {
-        return Number(localStorage.getItem("highScore" + num));
-    }
-    function updateHighscore(num) {
-        if (p.score > highScore(num)) {
-            localStorage.setItem("highScore" + num, p.score);
-        }
-    }
-    //ハイスコア表の掲載
-    function UpdateHighscoreTable() {
-        R.range(3, 7).forEach((i) => {
-            $(".score" + i).text(highScore(i) + "点");
-        });
-    }
-
-    UpdateHighscoreTable();
+    updateHighscoreTable();
 
     //十字キー
     $("html").on("keydown", (e) => {
@@ -77,7 +68,7 @@ $(() => {
             $("div.gameClear").addClass("show");
             $("span.score").text(p.score);
 
-            updateHighscore(Common.CELL_NUM);
+            updateHighscore(Common.CELL_NUM, p.score);
         }
         //ゲームオーバー
         else if (gameField.isGameOver()) {
@@ -91,7 +82,7 @@ $(() => {
         $("div.gameOver").addClass("show");
         $("span.score").text(p.score);
 
-        updateHighscore(Common.CELL_NUM);
+        updateHighscore(Common.CELL_NUM, p.score);
     }
 
     //リスタートボタン
@@ -145,7 +136,7 @@ $(() => {
         p.score = 0;
         $(".score.now >.num").text(0);
 
-        UpdateHighscoreTable();
+        updateHighscoreTable();
 
         $(".cell").remove();
 
@@ -175,8 +166,7 @@ $(() => {
             .attr("href", "cell_num/cell_num" + cellNum + ".css");
 
         //Commonクラスに値をセット
-        Common.CELL_NUM = Number(cellNum);
-        Common.setCellSize();
+        Common.setCellNum(cellNum);
 
         //フィールドのマス目を描画
         for (let i = 0; i < Common.CELL_NUM ** 2; i++) {
