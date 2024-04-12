@@ -1,8 +1,8 @@
 import { GameField } from "./2048.js";
 import {
     highScore,
-    updateHighscore,
-    updateHighscoreTable,
+    updateHighScore,
+    updateHighScoreTable,
 } from "./module/highScore.js";
 import { MOVE_TIME } from "./module/time.js";
 
@@ -19,7 +19,7 @@ $(() => {
 
     let gameField;
 
-    updateHighscoreTable();
+    updateHighScoreTable();
 
     //十字キー
     $("html").on("keydown", (e) => {
@@ -68,7 +68,7 @@ $(() => {
             $("div.gameClear").addClass("show");
             $("span.score").text(p.score);
 
-            updateHighscore(Common.CELL_NUM, p.score);
+            updateHighScore(Common.CELL_NUM, p.score);
         }
         //ゲームオーバー
         else if (gameField.isGameOver()) {
@@ -82,7 +82,7 @@ $(() => {
         $("div.gameOver").addClass("show");
         $("span.score").text(p.score);
 
-        updateHighscore(Common.CELL_NUM, p.score);
+        updateHighScore(Common.CELL_NUM, p.score);
     }
 
     //リスタートボタン
@@ -136,7 +136,7 @@ $(() => {
         p.score = 0;
         $(".score.now >.num").text(0);
 
-        updateHighscoreTable();
+        updateHighScoreTable();
 
         $(".cell").remove();
 
@@ -160,24 +160,34 @@ $(() => {
             return r;
         })();
 
-        //サイズに応じたCSSの適用
-        $("link.cell_num")
-            .attr("rel", "stylesheet")
-            .attr("href", "cell_num/cell_num" + cellNum + ".css");
-
         //Commonクラスに値をセット
         Common.setCellNum(cellNum);
 
-        //フィールドのマス目を描画
-        for (let i = 0; i < Common.CELL_NUM ** 2; i++) {
-            $("main").prepend($("<div class='cell'>"));
-        }
+        //サイズに応じたCSSの適用
+        // $("link.cell_num")
+        //     .attr("rel", "stylesheet")
+        //     .attr("href", "cell_num/cell_num" + cellNum + ".css");
+
+        const link = $("<link>")
+            .addClass("cell_num")
+            .attr("rel", "stylesheet")
+            .attr("href", "cell_num/cell_num" + cellNum + ".css");
+
+        const oldLink = $("link.cell_num");
+        oldLink.after(link);
+        oldLink.remove();
+        link.on("load", () => {
+            gameField = new GameField($("main"));
+            //フィールドのマス目を描画
+            for (let i = 0; i < Common.CELL_NUM ** 2; i++) {
+                $("main").prepend($("<div class='cell'>"));
+            }
+        });
+
         //ハイスコア表示
         $(".score.high>.num").text(highScore(Common.CELL_NUM));
 
         p.preGame = false;
-
-        gameField = new GameField($("main"));
     });
 
     //デバッグ用

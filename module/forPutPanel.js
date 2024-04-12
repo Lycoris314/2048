@@ -1,6 +1,10 @@
-export const randomNum = (num) => {
+export const randomNum = (size) => {
     const r = Math.random();
-    switch (num) {
+
+    //const num = (r, arr) => R.findIndex(R.gt(0), R.map(R.subtract(r), arr));
+    //case 5: return num(r,[0.4,0.7,0.9,1])
+
+    switch (size) {
         case 3:
         case 4:
             return r < 0.9 ? 0 : 1;
