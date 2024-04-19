@@ -22,7 +22,7 @@ $(() => {
     updateHighScoreTable();
 
     //十字キー
-    $("html").on("keydown", (e) => {
+    $("body").on("keydown", (e) => {
         if (p.preGame || p.stopKeyEvent || p.ruleShowing || p.inAnimation)
             return;
 
