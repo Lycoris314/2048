@@ -7,6 +7,7 @@ export function updateHighScore(num, score) {
         localStorage.setItem("highScore" + num, score);
     }
 }
+
 //ハイスコア表の掲載
 export function updateHighScoreTable() {
     R.range(3, 7).forEach((i) => {

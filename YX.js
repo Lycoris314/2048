@@ -15,6 +15,7 @@ class YX {
         return yx(a * v.y, a * v.x);
     }
 }
+
 function yx(y, x) {
     return new YX(y, x);
 }
